@@ -11,3 +11,4 @@
 - Tailwind CSS
 - React 
 - React Router Dom
+- Preline UI
