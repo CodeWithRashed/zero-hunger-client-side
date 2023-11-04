@@ -10,6 +10,27 @@ export const router = createBrowserRouter([
        {
         path: "/",
         element: <HomePage></HomePage>
+       },
+       {
+        path: "foods",
+        element: <>Food</>
+       },
+       {
+        path: "add",
+        element: <>Add</>
+       },
+       {
+        path: "manage",
+        element: <>manage</>
+       },
+       
+       {
+        path: "request",
+        element: <>request</>
+       },
+       {
+        path: "login",
+        element: <>login</>
        }
     ])
   },
