@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../Components/Nav/Navbar";
+import Footer from "../Components/Footer/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="dark:bg-slate-900">
-      <div className="max-w-[1220px] mx-auto ">
-        <Navbar></Navbar>
+    <div className="dark:bg-gray-900">
+      <Navbar></Navbar>
+      <div className="font-rubik px-[5%] mt-5 ">
         <Outlet></Outlet>
       </div>
+
+      <Footer></Footer>
     </div>
   );
 };
