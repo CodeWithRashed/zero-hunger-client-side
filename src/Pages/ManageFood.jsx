@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchProductData } from "../Hooks/fetchData";
+import { fetchFoodData } from "../Hooks/fetchData";
 import BrandBanner from "../Components/BrandBanner.jsx/BrandBanner";
 import Rating from "react-rating";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
@@ -11,7 +11,7 @@ const ManageFood = () => {
  
 
   useEffect(() => {
-    fetchProductData()
+    fetchFoodData()
       .then((data) => {
         let filterData = data.filter((oneData) =>
           oneData.brandName.includes(brand.brand)

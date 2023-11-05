@@ -4,7 +4,7 @@ import Rating from "react-rating";
 import {AiFillStar, AiOutlineStar} from "react-icons/ai";
 
 import { useContext, useEffect, useState } from "react";
-import { fetchProductData } from "../Hooks/fetchData";
+import { fetchFoodData } from "../Hooks/fetchData";
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 
@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    fetchProductData()
+    fetchFoodData()
       .then((data) => {
         setProductData(
           data.filter((singleData) =>

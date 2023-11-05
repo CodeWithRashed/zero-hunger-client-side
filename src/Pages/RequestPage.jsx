@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { fetchProductData } from "../Hooks/fetchData";
+import { fetchFoodData } from "../Hooks/fetchData";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AiFillDelete } from "react-icons/ai";
@@ -15,7 +15,7 @@ const RequestPage = () => {
     const fetchData = async () => {
       try {
         const cartItems = cartItemsRaw.filter(singleItem => singleItem.userEmail.includes(userEmail))
-        const data = await fetchProductData();
+        const data = await fetchFoodData();
         const filteredData = data.filter((singleData) =>
           cartItems?.some((item) => item.id === singleData._id)
         );
