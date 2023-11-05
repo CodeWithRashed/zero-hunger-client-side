@@ -18,7 +18,7 @@ const Register = ({ setPageToggle }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
-    const name = form.password.value;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     const imageUrl = form.imageUrl.value;
@@ -26,10 +26,20 @@ const Register = ({ setPageToggle }) => {
     //User Data
     const user = { name, email, imageUrl };
   
+    const isValidPassword = passwordRegex.test(password);
+    //Password Error Message
+    if (!isValidPassword) {
+      const invalidMessage =
+        "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one digit.";
+      setPassError(invalidMessage);
+
+      return;
+    }
+
     //Send User Data to Database
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_API}/api/addUser`,
+        `${import.meta.env.VITE_BACKEND_API}/api/v1/add/user`,
         {
           method: "POST",
           headers: {
@@ -40,15 +50,7 @@ const Register = ({ setPageToggle }) => {
       );
 
       if (response.ok) {
-        const isValidPassword = passwordRegex.test(password);
-        //Password Error Message
-        if (!isValidPassword) {
-          const invalidMessage =
-            "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one digit.";
-          setPassError(invalidMessage);
-
-          return;
-        }
+       
         await response.json();
         setPassError(null);
         setUserPhoto(imageUrl);
@@ -80,15 +82,15 @@ const Register = ({ setPageToggle }) => {
   const loginWithGoogle =  () => {
     googleLogin()
       .then(async(user) => {
-        console.log(user);
-        const name = await user.displayName;
-        const email = await user.email;
-        const imageUrl = await user.photoURL;
+        console.log(user.user);
+        const name = await user.user.displayName;
+        const email = await user.user.email;
+        const imageUrl = await user.user.photoURL;
 
         const googleUser = { name, email, imageUrl };
     
          await fetch(
-          `${import.meta.env.VITE_BACKEND_API}/api/addUser`,
+          `${import.meta.env.VITE_BACKEND_API}/api/v1/add/user`,
           {
             method: "POST",
             headers: {
