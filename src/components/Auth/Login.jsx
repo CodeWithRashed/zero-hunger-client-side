@@ -42,7 +42,25 @@ const Login = ({ setPageToggle }) => {
   //Google Login
   const loginWithGoogle = () => {
     googleLogin()
-      .then(() => {
+    .then(async(user) => {
+      console.log(user.user);
+      const name = await user.user.displayName;
+      const email = await user.user.email;
+      const imageUrl = await user.user.photoURL;
+
+      const googleUser = { name, email, imageUrl };
+  
+       await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/v1/add/user`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(googleUser),
+        })
+      navigator(location.state ? location.state : "/");
+      setTimeout(() => {
         toast.success("Login Successful, Redirecting", {
           position: "top-center",
           autoClose: 2000,
@@ -53,10 +71,8 @@ const Login = ({ setPageToggle }) => {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          navigator(location.state ? location.state : "/");
-        }, "2000");
-      })
+      }, 2000);
+    })
       .catch((err) => {
         if (err) {
           setLoginError("Invalid login credentials");
