@@ -110,7 +110,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="flex flex-wrap items-center sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-lg py-4 dark:bg-gray-800">
+      <header className="flex flex-wrap items-center sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-lg py-4 dark:bg-gray-900">
         <nav
           className="w-full mx-auto sm:flex sm:items-center sm:justify-between"
           aria-label="Global"
