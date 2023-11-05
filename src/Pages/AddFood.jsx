@@ -132,35 +132,6 @@ const AddFood = () => {
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="quantity"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Quantity
-              </label>
-              <input
-                type="number"
-                name="quantity"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder=""
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="expire_date"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Expire Date
-              </label>
-              <input
-                type="date"
-                name="expire_date"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div>
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -194,7 +165,56 @@ const AddFood = () => {
               />
             </div>
           </div>
-
+          <div className="grid grid-cols-3 gap-5">
+            <div>
+              <label
+                htmlFor="quantity"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Quantity
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                defaultValue="1"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder=""
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                htmlFor="expire_date"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Expire Date
+              </label>
+              <input
+                type="date"
+                name="expire_date"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="status"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Select Availability
+              </label>
+              <select
+                name="status"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected value="Available">
+                  Available
+                </option>
+                <option value="Pending">Pending</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </div>
+          </div>
           <div>
             <label
               htmlFor="notes"
