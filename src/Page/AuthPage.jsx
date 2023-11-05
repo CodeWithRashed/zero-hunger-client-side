@@ -1,9 +1,16 @@
+import { useState } from "react"
 import Login from "../components/AuthForm/Login"
+import Register from "../components/AuthForm/Register"
 
 const AuthPage = () => {
+    const [authPage, setAuthPage] = useState("Register")
   return (
     <div>
-      <Login></Login>
+        {
+            authPage == "Register" ? <Register setAuthPage={setAuthPage}></Register> : <Login setAuthPage={setAuthPage}></Login>
+        }
+      
+      
     </div>
   )
 }

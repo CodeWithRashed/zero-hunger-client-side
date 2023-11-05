@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 
-const Login = ({setAuthPage}) => {
+const Register = ({setAuthPage}) => {
   return (
-
-    
+    <div>
+       
     <div className="h-screen"> 
       <div className="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16">
         <div className="w-full max-w-md mx-auto p-6">
@@ -11,11 +12,11 @@ const Login = ({setAuthPage}) => {
               <div className="text-center">
                 <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  Don&apos;t have an account yet?
+                  Already Have an account?
                   <button onClick={ () => {
-                    setAuthPage("Register")
+                    setAuthPage("Login")
                   }} className="text-blue-600 decoration-2 hover:underline font-medium" href="../examples/html/signup.html">
-                    Register here
+                    Sign up here
                   </button>
                 </p>
               </div>
@@ -78,8 +79,11 @@ const Login = ({setAuthPage}) => {
         </div>
       </div>
     </div>
-
-  );
+    </div>
+  )
 }
 
-export default Login;
+Register.propTypes = {
+    setAuthPage: PropTypes.string
+}
+export default Register

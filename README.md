@@ -11,4 +11,6 @@
 - Tailwind CSS
 - React 
 - React Router Dom
-- Preline UI
+- Chakra UI
+- React Icon
+- Prop-Types
