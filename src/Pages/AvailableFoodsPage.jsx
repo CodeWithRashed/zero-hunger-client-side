@@ -125,8 +125,7 @@ const AvailableFoodsPage = () => {
                         </div>
                         <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                           <Link to={`/food/${food._id}`}>
-                            {" "}
-                            <button>Details</button>
+                                         <button>Details</button>
                           </Link>
                         </div>
                       </div>

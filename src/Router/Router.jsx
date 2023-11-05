@@ -4,7 +4,7 @@ import HomePage from "../Pages/HomePage";
 import AuthPage from "../Pages/AuthPage";
 import Error404 from '../Pages/Error404';
 import AddFood from "../Pages/AddFood";
-import ProductDetail from "../Pages/ProductDetail";
+import FoodDetails from "../Pages/FoodDetails";
 import ManageFood from "../Pages/ManageFood";
 import AvailableFoodsPage from "../Pages/AvailableFoodsPage";
 import PrivateRoute from '../Router/PrivateRoute'
@@ -44,8 +44,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/food/:id",
-        element: <PrivateRoute><ProductDetail></ProductDetail></PrivateRoute>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/getProduct/${params.id}`)
+        element: <PrivateRoute><FoodDetails></FoodDetails></PrivateRoute>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${params.id}`)
       },
       {
         path: "/api/update/:id",
