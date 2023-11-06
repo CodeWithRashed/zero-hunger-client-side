@@ -30,10 +30,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "/manage",
-        element: <PrivateRoute><ManageFood></ManageFood></PrivateRoute>
+        element: <PrivateRoute><ManageFood></ManageFood></PrivateRoute>,
+        loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/tools.rashed@gmail.com`)
       },
       {
         path: "/request",
+        element: <PrivateRoute><RequestPage></RequestPage></PrivateRoute>,
+        // loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/getCartItems`)
+      },
+      {
+        path: "/food/request/manage/:id",
         element: <PrivateRoute><RequestPage></RequestPage></PrivateRoute>,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/getCartItems`)
       },

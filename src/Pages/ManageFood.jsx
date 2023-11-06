@@ -6,32 +6,9 @@ import {
 import { Table } from "flowbite-react";
 import { useContext, useEffect, useState } from "react";
 import { GlobalDataContext } from "../ContextApi/DataContext";
-const data = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
+import { Link } from "react-router-dom";
+
+
 
 const columns = [
   {
@@ -59,26 +36,38 @@ const columns = [
     header: "Location",
     cell: (info) => <i>{info.getValue()}</i>,
   },
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: (info) => <i>{info.getValue()}</i>,
-  // },
+  {
+    accessorKey: "deliveryStatus",
+    header: "Status",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
   {
     accessorKey: "_id",
     header: "Action",
-    cell: (info) => <a href={info.getValue()}>Click</a>,
+    cell: (info) => <div className="flex gap-2"><Link to={`/food/manage/request/${info.getValue()}`}>Manage</Link> <Link to={`/food/update/${info.getValue()}`}>Update</Link><button onClick={ () => {
+      console.log(info.getValue())
+    }}>Delete</button></div>,
   },
 ];
 
 const ManageFood = () => {
-const {userFoodData} = useContext(GlobalDataContext)
+const [foodData, setFoodData] = useState([])
+const {activeUser} = useContext(GlobalDataContext)
+  useEffect(() => {
+    fetch(
+      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/${activeUser?.email}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
 
-console.log(userFoodData)
+        setFoodData(data);
+      });
+  }, [activeUser]);
+
 
  
   const table = useReactTable({
-    data,
+    data: foodData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

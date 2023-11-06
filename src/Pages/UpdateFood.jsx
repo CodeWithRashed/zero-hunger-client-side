@@ -1,11 +1,15 @@
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const UpdateFood = () => {
   const { activeUser } = useContext(GlobalDataContext);
-  const foodData = useLoaderData();
+  const [foodData, setFoodData] = useState([])
+ const fetchedFood = useLoaderData()
+  useEffect(()=>{
+    setFoodData(fetchedFood)
+  },[fetchedFood])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +25,7 @@ const UpdateFood = () => {
     const additionalNote = form.notes.value;
     const deliveryStatus = form.status.value;
 
-    const foodData = {
+    const updatedFoodData = {
       donarName,
       donarImage,
       foodName,
@@ -38,16 +42,17 @@ const UpdateFood = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_API}/api/v1/user/update/food/${foodData._id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(foodData),
+          body: JSON.stringify(updatedFoodData),
         }
       );
       if (response.ok) {
         await response.json();
         form.reset();
+        setFoodData([])
         toast.success("Food Updated!", {
           position: "top-right",
           autoClose: 2000,
@@ -66,7 +71,7 @@ const UpdateFood = () => {
   return (
     <div className="py-[5%] text-2xl">
       <div className=" mx-auto shadow-lg rounded-t-xl border-x-2 border-t-2 border-red-200">
-        <h1 className="text-3xl py-3 text-center">Add Food</h1>
+        <h1 className="text-3xl py-3 text-center">Update Food Details</h1>
       </div>
       <div className="mx-auto shadow-xl rounded-b-xl py-5 px-8 ">
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -113,7 +118,7 @@ const UpdateFood = () => {
                 Food Name
               </label>
               <input
-                defaultValue={foodData.foodName}
+                defaultValue={foodData?.foodName}
                 type="text"
                 name="food_name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -129,8 +134,8 @@ const UpdateFood = () => {
                 Food Image
               </label>
               <input
-                defaultValue={foodData.foodImage}
-                type="tel"
+                defaultValue={foodData?.foodImage}
+                type="url"
                 name="food_image"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Food Image Url.."
@@ -216,8 +221,8 @@ const UpdateFood = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                
-                <option selected value={foodData.deliveryStatus}>
-                  {foodData.deliveryStatus}
+                <option defaultValue value={foodData?.deliveryStatus}>
+                  {foodData?.deliveryStatus}
                 </option>
                 <option value="Available">Available</option>
                 <option value="Pending">Pending</option>

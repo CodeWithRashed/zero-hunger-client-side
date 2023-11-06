@@ -1,32 +1,30 @@
-import { Link, useLoaderData } from "react-router-dom";
-import SectionTitle from "../Components/SectionTitle/SectionTitle";
 
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { Card } from "flowbite-react";
 
 import { useContext, useEffect } from "react";
-import { fetchFoodData } from "../Hooks/fetchData";
+
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
+import { useLoaderData } from "react-router-dom";
+
 
 const FoodDetails = () => {
   const [openModal, setOpenModal] = useState(false);
   const { activeUser } = useContext(GlobalDataContext);
   const userEmail = activeUser?.email;
-  const product = useLoaderData();
+  const foodData = useLoaderData();
   const [userFoodData, setUserFoodData] = useState([]);
   const [donationCount, setDonationCount] = useState([]);
 
-  const currentDate = new Date()
-  
-    const formattedDate = currentDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
+  const currentDate = new Date();
 
+  const formattedDate = currentDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
 
   useEffect(() => {
     fetch(
@@ -39,15 +37,45 @@ const FoodDetails = () => {
       });
   }, [userEmail]);
 
-  const handleAddCart = async (id) => {
-    await fetch(`${import.meta.env.VITE_BACKEND_API}/api/addCartItem`, {
+  const handleFoodRequest = async () => {
+
+
+    if(foodData?.donarEmail == activeUser?.email){
+      toast.error("You Can Not Request Your Own Food", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      // return
+    }
+
+    const requestFoodData = {
+      foodId: foodData._id,
+      foodImage: foodData.foodImage,
+      donarImage: foodData.donarImage,
+      requesterName: activeUser.displayName,
+      requesterImage:activeUser.photoURL,
+      donarName: foodData.donarName,
+      requesterEmail: activeUser.email,
+      donarEmail: foodData.donarEmail,
+      requestDate: new Date().toISOString().split('T')[0],
+      requestTime: new Date().toISOString().split("T")[1].split(".")[0],
+      requestStatus: "Pending",
+    };
+
+    await fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/food/request/add`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ id, userEmail }),
+      body: JSON.stringify(requestFoodData),
     }).then(() => {
-      toast.success("Added to Cart", {
+      toast.success("Request Added", {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -66,7 +94,7 @@ const FoodDetails = () => {
         {/* Food Details */}
         <div className="">
           <div>
-            <img className="object-cover" src={product?.foodImage} alt="" />
+            <img className="object-cover" src={foodData?.foodImage} alt="" />
           </div>
 
           <div className="">
@@ -85,11 +113,11 @@ const FoodDetails = () => {
           <div className="flex flex-col items-center pb-10">
             <img
               className="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src={product.donarImage}
-              alt={product.donarName}
+              src={foodData.donarImage}
+              alt={foodData.donarName}
             />
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              {product.donarName}
+              {foodData.donarName}
             </h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               Total Donation: {donationCount} Times
@@ -111,7 +139,7 @@ const FoodDetails = () => {
                   Quantity
                 </li>
                 <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
-                  {product.foodQuantity}
+                  {foodData.foodQuantity}
                 </li>
               </div>
               <div className="flex">
@@ -119,7 +147,7 @@ const FoodDetails = () => {
                   Expire Date
                 </li>
                 <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
-                  {product.expireDate}
+                  {foodData.expireDate}
                 </li>
               </div>
               {/* <!-- Modal toggle --> */}
@@ -145,7 +173,7 @@ const FoodDetails = () => {
                       <input
                         type="text"
                         disabled
-                        defaultValue={product?.foodName}
+                        defaultValue={foodData?.foodName}
                         name="food_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="John"
@@ -162,7 +190,7 @@ const FoodDetails = () => {
                       <input
                         type="text"
                         disabled
-                        defaultValue={product?._id}
+                        defaultValue={foodData?._id}
                         name="food_id"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="John"
@@ -179,7 +207,7 @@ const FoodDetails = () => {
                       <input
                         type="text"
                         disabled
-                        defaultValue={product?.donarName}
+                        defaultValue={foodData?.donarName}
                         name="donar_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="John"
@@ -196,7 +224,7 @@ const FoodDetails = () => {
                       <input
                         type="email"
                         disabled
-                        defaultValue={product?.donarEmail}
+                        defaultValue={foodData?.donarEmail}
                         name="donar_email"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
@@ -227,7 +255,7 @@ const FoodDetails = () => {
                         Request Date
                       </label>
                       <input
-                      disabled
+                        disabled
                         type="text"
                         defaultValue={formattedDate}
                         name="request_date"
@@ -245,7 +273,7 @@ const FoodDetails = () => {
                         Pickup Location
                       </label>
                       <input
-                        defaultValue={product?.pickupLocation}
+                        defaultValue={foodData?.pickupLocation}
                         type="text"
                         name="location"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -256,7 +284,14 @@ const FoodDetails = () => {
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={() => setOpenModal(false)}>Request Food</Button>
+                  <Button
+                    onClick={() => {
+                      setOpenModal(false);
+                      handleFoodRequest();
+                    }}
+                  >
+                    Request This Food
+                  </Button>
                   <Button color="gray" onClick={() => setOpenModal(false)}>
                     Decline
                   </Button>
@@ -266,10 +301,10 @@ const FoodDetails = () => {
           </div>
         </div>
       </div>
-      {/* Displaying User Spacific Foods */}
+      {/* Displaying User Specific Foods */}
       <div className="mt-10">
         <div className="text-xl my-8 text-center">
-          <h1>Food Donated By {product.donarName}</h1>
+          <h1>Food Donated By {foodData.donarName}</h1>
         </div>
         <div className="grid grid-cols-3 gap-5">
           {userFoodData?.map((food) => (
