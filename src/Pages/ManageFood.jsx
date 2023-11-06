@@ -1,98 +1,120 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { fetchFoodData } from "../Hooks/fetchData";
-import BrandBanner from "../Components/BrandBanner.jsx/BrandBanner";
-import Rating from "react-rating";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { Table } from "flowbite-react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalDataContext } from "../ContextApi/DataContext";
+const data = [
+  {
+    firstName: "tanner",
+    lastName: "linsley",
+    age: 24,
+    visits: 100,
+    status: "In Relationship",
+    progress: 50,
+  },
+  {
+    firstName: "tandy",
+    lastName: "miller",
+    age: 40,
+    visits: 40,
+    status: "Single",
+    progress: 80,
+  },
+  {
+    firstName: "joe",
+    lastName: "dirte",
+    age: 45,
+    visits: 20,
+    status: "Complicated",
+    progress: 10,
+  },
+];
+
+const columns = [
+  {
+    accessorKey: "foodImage",
+    header: "Image",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
+  {
+    accessorKey: "foodName",
+    header: "Food Name",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
+  {
+    accessorKey: "foodQuantity",
+    header: "Quantity",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
+  {
+    accessorKey: "expireDate",
+    header: "Expire Date",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
+  {
+    accessorKey: "pickupLocation",
+    header: "Location",
+    cell: (info) => <i>{info.getValue()}</i>,
+  },
+  // {
+  //   accessorKey: "status",
+  //   header: "Status",
+  //   cell: (info) => <i>{info.getValue()}</i>,
+  // },
+  {
+    accessorKey: "_id",
+    header: "Action",
+    cell: (info) => <a href={info.getValue()}>Click</a>,
+  },
+];
 
 const ManageFood = () => {
-  const brand = useParams();
-  const [productData, setProductData] = useState([]);
- 
+const {userFoodData} = useContext(GlobalDataContext)
 
-  useEffect(() => {
-    fetchFoodData()
-      .then((data) => {
-        let filterData = data.filter((oneData) =>
-          oneData.brandName.includes(brand.brand)
-        );
-      
-        setProductData(filterData);
-      })
-     
-  }, [brand]);
+console.log(userFoodData)
+
+ 
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
 
   return (
-    <div>
-      {productData.length > 1 ? (
-        <div>
-          <BrandBanner brand={brand.brand}></BrandBanner>
-          <div className="grid lg:grid-cols-3 gap-5 my-[8%]">
-            {productData?.map((product) => (
-              <div key={product._id}>
-                <div className="shadow-lg border border-[#ff2d37] rounded-xl">
-                  <div className="p-3">
-                    <h1 className="text-2xl">{product?.productName}</h1>
-                    <h1 className="text-xl uppercase">
-                      <span>Brand: </span>
-                      {product?.brandName}
-                    </h1>
-                  </div>
-                  <div className="img h-[200px]">
-                    <img
-                      className="h-[200px] w-full object-cover"
-                      src={`${product?.productImage}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="content p-3">
-                    <h1 className="text-2xl uppercase">
-                      <span>Type: </span> {product?.productType}
-                    </h1>
-                    <h1 className="text-2xl uppercase">
-                      <span>Price: </span>
-                      {product?.productPrice}$
-                    </h1>
-                    <div className="text-2xl uppercase flex items-center gap-1">
-                      <span>Ratting: </span>
-                      <span><Rating className="flex items-center"
-                        emptySymbol={
-                          <AiOutlineStar className="text-[#ff2d37] flex items-center text-2xl"></AiOutlineStar>
-                        }
-                        fullSymbol={
-                          <AiFillStar className="text-[#ff2d37] text-2xl"></AiFillStar>
-                        }
-                        readonly={true}
-                        initialRating={4}
-                      /></span>
-                      
-                    </div>
-                    <div className="cta text-2xl flex justify-between items-center gap-[4%]  my-5">
-                      <Link
-                        to={`/products/${product._id}`}
-                        className="px-3 !w-[45%] py-2 bg-[#ff2d37] rounded-xl text-white text-center"
-                      >
-                        <button>Details</button>
-                      </Link>
-                      <Link
-                        to={`/api/update/${product._id}`}
-                        className="px-3 !w-[45%] py-2 bg-[#ff2d37] rounded-xl text-white text-center"
-                      >
-                        <button>Update</button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <Table>
+      {table.getHeaderGroups().map((headerGroup) => (
+        <Table.Head className="tr" key={headerGroup.id}>
+
+          {headerGroup.headers.map((header) => (
+            <Table.HeadCell key={header?.id}>
+              {header?.column?.columnDef?.header}
+            </Table.HeadCell>
+          ))}
+        </Table.Head>
+      ))}
+
+      <Table.Body className="divide-y">
+        {table.getRowModel().rows?.map((row) => (
+          <Table.Row
+            key={row?.id}
+            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+          >
+            {row.getVisibleCells().map((cell) => (
+              <Table.Cell
+                className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                key={cell?.id}
+              >
+                {flexRender(cell?.column?.columnDef?.cell, cell?.getContext())}
+              </Table.Cell>
             ))}
-          </div>
-        </div>
-      ) : (
-        <div className="flex justify-center items-center w-full h-screen">
-          NO DATA AVAILABLE
-        </div>
-      )}
-    </div>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
   );
 };
 

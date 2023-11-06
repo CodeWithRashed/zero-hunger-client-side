@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useContext } from "react";
+import { useLoaderData } from "react-router-dom";
 
-const AddFood = () => {
+const UpdateFood = () => {
   const { activeUser } = useContext(GlobalDataContext);
-  console.log(activeUser);
+  const foodData = useLoaderData();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -29,12 +31,12 @@ const AddFood = () => {
       donarEmail,
       pickupLocation,
       additionalNote,
-      deliveryStatus
+      deliveryStatus,
     };
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_API}/api/v1/user/add/food`,
+        `${import.meta.env.VITE_BACKEND_API}/api/v1/user/update/food/${foodData._id}`,
         {
           method: "POST",
           headers: {
@@ -46,7 +48,7 @@ const AddFood = () => {
       if (response.ok) {
         await response.json();
         form.reset();
-        toast.success("Food Added!", {
+        toast.success("Food Updated!", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: true,
@@ -111,6 +113,7 @@ const AddFood = () => {
                 Food Name
               </label>
               <input
+                defaultValue={foodData.foodName}
                 type="text"
                 name="food_name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -126,6 +129,7 @@ const AddFood = () => {
                 Food Image
               </label>
               <input
+                defaultValue={foodData.foodImage}
                 type="tel"
                 name="food_image"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -159,6 +163,7 @@ const AddFood = () => {
                 Pickup Location
               </label>
               <input
+                defaultValue={foodData?.pickupLocation}
                 type="text"
                 name="location"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -176,9 +181,9 @@ const AddFood = () => {
                 Quantity
               </label>
               <input
+                defaultValue={foodData?.foodQuantity}
                 type="number"
                 name="quantity"
-                defaultValue="1"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder=""
                 required
@@ -192,6 +197,7 @@ const AddFood = () => {
                 Expire Date
               </label>
               <input
+                defaultValue={foodData?.expireDate}
                 type="date"
                 name="expire_date"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -209,9 +215,11 @@ const AddFood = () => {
                 name="status"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option selected value="Available">
-                  Available
+               
+                <option selected value={foodData.deliveryStatus}>
+                  {foodData.deliveryStatus}
                 </option>
+                <option value="Available">Available</option>
                 <option value="Pending">Pending</option>
                 <option value="Delivered">Delivered</option>
               </select>
@@ -225,6 +233,7 @@ const AddFood = () => {
               Additional Note
             </label>
             <textarea
+             defaultValue={foodData?.additionalNote}
               type="text"
               name="notes"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -243,4 +252,4 @@ const AddFood = () => {
   );
 };
 
-export default AddFood;
+export default UpdateFood;

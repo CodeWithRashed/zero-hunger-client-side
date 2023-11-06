@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   createUserWithEmailAndPassword,
@@ -24,6 +24,7 @@ const DataContext = ({ children }) => {
   const [activeUser, setActiveUser] = useState(null);
   const [userPhoto, setUserPhoto] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userFoodData, setUserFoodData] = useState([]);
 
   //Create User Email & Pass Func
   const createEmailUser = (email, password) => {
@@ -59,7 +60,17 @@ const DataContext = ({ children }) => {
     setActiveUser(user);
     setLoading(false);
   });
-
+  //Added Food Data
+  useEffect(() => {
+    fetch(
+      `http://localhost:3000/api/v1/user/get/foods/tools.rashed@gmail.com`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        
+        setUserFoodData(data);
+      });
+  }, []);
   //Global Data Export
   const globalDataVariable = {
     createEmailUser,
@@ -71,6 +82,7 @@ const DataContext = ({ children }) => {
     setUserPhoto,
     userPhoto,
     loading,
+    userFoodData
   };
   return (
     <GlobalDataContext.Provider value={globalDataVariable}>
