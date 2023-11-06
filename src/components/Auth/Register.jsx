@@ -116,7 +116,7 @@ const Register = ({ setPageToggle }) => {
   };
 
   return (
-    <div className="lg:px-10 lg:py-20">
+    <div className="">
       <div className="lg:w-1/2 shadow-lg border-x-2 border-t-2 border-red-200 rounded-t-xl h-1/2 mx-auto p-8">
         Create an Account
       </div>

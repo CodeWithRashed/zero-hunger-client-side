@@ -29,7 +29,7 @@ const AddFood = () => {
       donarEmail,
       pickupLocation,
       additionalNote,
-      deliveryStatus
+      deliveryStatus,
     };
 
     try {
@@ -62,11 +62,18 @@ const AddFood = () => {
     }
   };
   return (
-    <div className="py-[5%] text-2xl">
-      <div className=" mx-auto shadow-lg rounded-t-xl border-x-2 border-t-2 border-red-200">
-        <h1 className="text-3xl py-3 text-center">Add Food</h1>
+    <div className="py-[5%] my-20 text-2xl px-6 pt-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
+        <div className="w-full">
+          <h1
+            className="inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
+            aria-current="page"
+          >
+            Add Food
+          </h1>
+        </div>
       </div>
-      <div className="mx-auto shadow-xl rounded-b-xl py-5 px-8 ">
+      <div className="mx-auto rounded-b-xl py-5 px-8 ">
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
@@ -167,7 +174,7 @@ const AddFood = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
             <div>
               <label
                 htmlFor="quantity"
@@ -231,12 +238,15 @@ const AddFood = () => {
               required
             />
           </div>
-          <button
+          <div className="!w-full flex justify-center items-centers">
+          <button 
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white !w-1/4  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Submit
           </button>
+          </div>
+          
         </form>
       </div>
     </div>

@@ -5,12 +5,11 @@ import Footer from "../Components/Footer/Footer";
 const MainLayout = () => {
   return (
     <div className="dark:bg-gray-900">
-      <Nav></Nav>
-      <div className="font-rubik px-[5%] mt-5 ">
+      <div className=" max-w-[1280px] mx-auto lg:px-10">
+        <Nav></Nav>
         <Outlet></Outlet>
+        <Footer></Footer>
       </div>
-
-      <Footer></Footer>
     </div>
   );
 };
