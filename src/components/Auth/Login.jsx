@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = ({ setPageToggle }) => {
   const location = useLocation();
-  const { googleLogin, loginWithEmail } = useContext(GlobalDataContext);
+  const { googleLogin, loginWithEmail, setUserPhoto } = useContext(GlobalDataContext);
   const [loginError, setLoginError] = useState(null);
   const navigator = useNavigate();
   const handleLoginSubmit = async (event) => {
@@ -49,7 +49,7 @@ const Login = ({ setPageToggle }) => {
       const imageUrl = await user.user.photoURL;
 
       const googleUser = { name, email, imageUrl };
-  
+      setUserPhoto(imageUrl)
        await fetch(
         `${import.meta.env.VITE_BACKEND_API}/api/v1/add/user`,
         {

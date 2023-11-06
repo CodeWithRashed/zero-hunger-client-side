@@ -86,7 +86,7 @@ const Register = ({ setPageToggle }) => {
         const name = await user.user.displayName;
         const email = await user.user.email;
         const imageUrl = await user.user.photoURL;
-
+        setUserPhoto(imageUrl)
         const googleUser = { name, email, imageUrl };
     
          await fetch(
