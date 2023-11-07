@@ -5,6 +5,7 @@ import AuthPage from "../Pages/AuthPage";
 import Error404 from '../Pages/Error404';
 import AddFood from "../Pages/AddFood";
 import FoodDetails from "../Pages/FoodDetails";
+import ManageRequest from "../Pages/ManageRequest";
 import ManageFood from "../Pages/ManageFood";
 import AvailableFoodsPage from "../Pages/AvailableFoodsPage";
 import PrivateRoute from '../Router/PrivateRoute'
@@ -52,6 +53,11 @@ export const router = createBrowserRouter([
         path: "/food/:id",
         element: <PrivateRoute><FoodDetails></FoodDetails></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${params.id}`)
+      },
+      {
+        path: "/food/manage/:id",
+        element: <PrivateRoute><ManageRequest></ManageRequest></PrivateRoute>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/request/${params.id}`)
       },
       {
         path: "/food/update/:id",

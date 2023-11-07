@@ -14,7 +14,7 @@ const columns = [
   {
     accessorKey: "foodImage",
     header: "Image",
-    cell: (info) => <i>{info.getValue()}</i>,
+    cell: (info) => <div> <img className="w-28 h-10 object-cover rounded-xl" src={info.getValue()} alt="" /></div>,
   },
   {
     accessorKey: "foodName",
@@ -44,7 +44,7 @@ const columns = [
   {
     accessorKey: "_id",
     header: "Action",
-    cell: (info) => <div className="flex gap-2"><Link to={`/food/manage/request/${info.getValue()}`}>Manage</Link> <Link to={`/food/update/${info.getValue()}`}>Update</Link><button onClick={ () => {
+    cell: (info) => <div className="flex gap-2"><Link to={`/food/manage/${info.getValue()}`}>Manage</Link> <Link to={`/food/update/${info.getValue()}`}>Update</Link><button onClick={ () => {
       console.log(info.getValue())
     }}>Delete</button></div>,
   },
@@ -74,6 +74,8 @@ const {activeUser} = useContext(GlobalDataContext)
 
 
   return (
+    <div className="my-10 min-h-[50vh]">
+
     <Table>
       {table.getHeaderGroups().map((headerGroup) => (
         <Table.Head className="tr" key={headerGroup.id}>
@@ -104,6 +106,7 @@ const {activeUser} = useContext(GlobalDataContext)
         ))}
       </Table.Body>
     </Table>
+    </div>
   );
 };
 
