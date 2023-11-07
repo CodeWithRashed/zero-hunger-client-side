@@ -7,7 +7,7 @@ import { BiSolidDonateHeart, BiSolidUserCircle } from "react-icons/bi";
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-const RequestPage = () => {
+const AllRequestPage = () => {
   const [allData, setAllData] = useState(null);
   const [isMyDonation, setIsMyDonation] = useState(true);
   const { activeUser } = useContext(GlobalDataContext);
@@ -42,28 +42,29 @@ const RequestPage = () => {
     fetchData();
   }, [userEmail, openModal]);
 
-  // const handleDelete = async (id) => {
-  //   await fetch(`${import.meta.env.VITE_BACKEND_API}/api/delete/${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((res) => res.json())
-  //     .then(() => {
-  //       setAllData((oldAllData) =>
-  //         oldAllData.filter((item) => item._id !== id)
-  //       );
+  const handleRequestDelete = async (id) => {
+    await fetch(
+      `${import.meta.env.VITE_BACKEND_API}/api/v1/request/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((res) => res.json())
+      .then(() => {
+        setAllData((allData) => allData.filter((item) => item._id !== id));
 
-  //       toast.success("Removed from Cart!!", {
-  //         position: "top-center",
-  //         autoClose: 2000,
-  //         hideProgressBar: true,
-  //         closeOnClick: true,
-  //         pauseOnHover: false,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //     });
-  // };
+        toast.success("Request Removed!!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+  };
 
   return (
     <div className="my-12">
@@ -195,7 +196,9 @@ const RequestPage = () => {
                               <td className="px-6 py-4">
                                 {/* <!-- Modal toggle --> */}
                                 <button
-                                  onClick={() => setOpenModal(true)}
+                                  onClick={() => {
+                                    setOpenModal(true);
+                                  }}
                                   type="button"
                                   data-modal-target="editUserModal"
                                   data-modal-show="editUserModal"
@@ -221,7 +224,12 @@ const RequestPage = () => {
                                       <div className="flex justify-center gap-4">
                                         <Button
                                           color="failure"
-                                          onClick={() => setOpenModal(false)}
+                                          onClick={() => {
+                                            handleRequestDelete(
+                                              singleDonationData?._id
+                                            );
+                                            setOpenModal(false);
+                                          }}
                                         >
                                           {"Yes, I'm sure"}
                                         </Button>
@@ -304,15 +312,15 @@ const RequestPage = () => {
                               <td className="flex justify-start px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
                                   className="w-10 h-10 rounded-full"
-                                  src={singleDonationData?.donarImage}
-                                  alt="Jese image"
+                                  src={singleDonationData?.requesterImage}
+                                  alt={singleDonationData?.requesterName}
                                 />
                                 <div className="pl-3">
                                   <div className="text-base font-semibold">
-                                    {singleDonationData?.donarName}
+                                    {singleDonationData?.requesterName}
                                   </div>
                                   <div className="font-normal text-gray-500">
-                                    {singleDonationData?.donarEmail}
+                                    {singleDonationData?.requesterEmail}
                                   </div>
                                 </div>
                               </td>
@@ -401,4 +409,4 @@ const RequestPage = () => {
   );
 };
 
-export default RequestPage;
+export default AllRequestPage;

@@ -5,11 +5,11 @@ import AuthPage from "../Pages/AuthPage";
 import Error404 from '../Pages/Error404';
 import AddFood from "../Pages/AddFood";
 import FoodDetails from "../Pages/FoodDetails";
-import ManageRequest from "../Pages/ManageRequest";
+import ManageSingleRequest from "../Pages/ManageSingleRequest";
 import ManageFood from "../Pages/ManageFood";
 import AvailableFoodsPage from "../Pages/AvailableFoodsPage";
 import PrivateRoute from '../Router/PrivateRoute'
-import RequestPage from "../Pages/RequestPage";
+import AllRequestPage from "../Pages/AllRequestPage";
 import UpdateFood from "../Pages/UpdateFood";
 export const router = createBrowserRouter([
   {
@@ -36,13 +36,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/request",
-        element: <PrivateRoute><RequestPage></RequestPage></PrivateRoute>,
+        element: <PrivateRoute><AllRequestPage></AllRequestPage></PrivateRoute>,
         // loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/getCartItems`)
-      },
-      {
-        path: "/food/request/manage/:id",
-        element: <PrivateRoute><RequestPage></RequestPage></PrivateRoute>,
-        loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/getCartItems`)
       },
        
       {
@@ -56,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/food/manage/:id",
-        element: <PrivateRoute><ManageRequest></ManageRequest></PrivateRoute>,
+        element: <PrivateRoute><ManageSingleRequest></ManageSingleRequest></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/request/${params.id}`)
       },
       {

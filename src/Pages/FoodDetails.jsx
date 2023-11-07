@@ -51,7 +51,7 @@ const FoodDetails = () => {
         progress: undefined,
         theme: "light",
       })
-      // return
+      return
     }
 
     const requestFoodData = {

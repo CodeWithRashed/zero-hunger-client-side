@@ -7,7 +7,7 @@ import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useLoaderData } from "react-router-dom";
 import { Delivered, Pending } from "../Components/Status/Status";
 
-const ManageRequest = () => {
+const ManageSingleRequest = () => {
   const { activeUser } = useContext(GlobalDataContext);
   const [requestedFood, setRequestedFood] = useState(null);
   const userEmail = activeUser?.email;
@@ -187,4 +187,4 @@ const ManageRequest = () => {
   );
 };
 
-export default ManageRequest;
+export default ManageSingleRequest;
