@@ -20,10 +20,10 @@ const FeatureFood = () => {
         subtitle="MORE QUANTITY MORE HAPPINESS"
         title="FEATURE FOODS"
       ></SectionTitle>
-      <div className="grid lg:grid-cols-3 gap-5 ">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
         {productData.map((food) => (
           <div key={food._id}>
-            <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full md:h-[450px] lg:h-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
               <div className="w-full">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {food?.foodName}

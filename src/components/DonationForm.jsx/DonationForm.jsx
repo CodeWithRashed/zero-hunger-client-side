@@ -2,7 +2,7 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 
 const DonationForm = () => {
   return (
-    <div>
+    <div className="my-[8%]">
         <div>
         <SectionTitle
         subtitle="HELP PEOPLE, SAVE HUMANITY"
