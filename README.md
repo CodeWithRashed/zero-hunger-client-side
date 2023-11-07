@@ -15,4 +15,4 @@
 - React Icon
 - React Table
 - Firebase
-- 
+- React Fast Marquee

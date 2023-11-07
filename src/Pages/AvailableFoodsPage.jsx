@@ -10,6 +10,7 @@ const AvailableFoodsPage = () => {
   const [buttonShortValue, setButtonShortValue] = useState("")
   useEffect(() => {
     fetchFoodData().then((data) => {
+      
       setFoodData(data);
       setAllFoodData(data);
       setSearchString("")
