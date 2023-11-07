@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { fetchFoodData } from "../../Hooks/fetchData";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import { GrMapLocation } from "react-icons/gr";
+import { BiMapPin } from "react-icons/bi";
 import { CiCalendarDate } from "react-icons/ci";
 import { HiOutlineArrowRight} from 'react-icons/hi';
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 const FeatureFood = () => {
-  const [productData, setProductData] = useState([]);
+  const [foodData, setFoodData] = useState([]);
   useEffect(() => {
     fetchFoodData().then((data) => {
-      setProductData(data.slice(-6));
+      data.sort((a, b) => (b.foodQuantity) - (a.foodQuantity))
+      setFoodData(data.slice(6));
     });
   }, []);
 
@@ -21,16 +22,16 @@ const FeatureFood = () => {
         title="FEATURE FOODS"
       ></SectionTitle>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-        {productData.map((food) => (
+        {foodData.map((food) => (
           <div key={food._id}>
-            <div className="w-full md:h-[450px] lg:h-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full md:h-[450px] lg:h-[450px] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
               <div className="w-full">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {food?.foodName}
                 </h5>
 
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  {food?.additionalNote}
+                  <span>Available For </span>{food?.foodQuantity} <span> People</span>
                 </p>
               </div>
               <div className="flex items-center flex-col justify-between gap-5 mb-4">
@@ -44,12 +45,12 @@ const FeatureFood = () => {
               </div>
               <div className="flex justify-between">
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 flex gap-2 items-center">
-                  <CiCalendarDate className="text-xl text-black"></CiCalendarDate>
+                  <CiCalendarDate className="text-xl text-black dark:text-white"></CiCalendarDate>
                   <span>{food.expireDate}</span>
                 </p>
 
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 flex gap-2 items-center">
-                  <GrMapLocation className="text-gray-700 dark:text-gray-400"></GrMapLocation>
+                  <BiMapPin className="text-gray-700 dark:text-white"></BiMapPin>
 
                   <span>{food?.pickupLocation}</span>
                 </p>
