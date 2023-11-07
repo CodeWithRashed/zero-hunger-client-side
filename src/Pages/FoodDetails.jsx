@@ -56,6 +56,7 @@ const FoodDetails = () => {
 
     const requestFoodData = {
       foodId: foodData._id,
+      foodName: foodData.foodName,
       foodImage: foodData.foodImage,
       donarImage: foodData.donarImage,
       requesterName: activeUser.displayName,

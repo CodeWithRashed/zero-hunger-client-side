@@ -9,6 +9,8 @@ const RequestPage = () => {
   const [allData, setAllData] = useState(null);
   const [isMyDonation, setIsMyDonation] = useState(true);
   const { activeUser } = useContext(GlobalDataContext);
+  const [myRequest, setMyRequest] = useState([]);
+  const [communityRequest, setCommunityRequest] = useState([]);
   const userEmail = activeUser.email;
 
   useEffect(() => {
@@ -22,8 +24,8 @@ const RequestPage = () => {
           singleData?.donarEmail.includes(userEmail)
         );
 
-        console.log(myRequest);
-        console.log(communityRequest);
+        setMyRequest(myRequest);
+        setCommunityRequest(communityRequest);
         setAllData(data);
       });
 
@@ -61,7 +63,7 @@ const RequestPage = () => {
   // };
 
   return (
-    <div>
+    <div className="my-12">
       {allData?.length > 0 ? (
         <div>
           <div className="border-b border-gray-200 dark:border-gray-700">
@@ -101,10 +103,12 @@ const RequestPage = () => {
           </div>
           <div>
             {isMyDonation ? (
-              <div className="my-12">
-                {allData?.length > 0 ? (
+              <div className="my-4">
+                {myRequest?.length > 0 ? (
                   <div>
-                    <h1>My Donation Request </h1>
+                    <div className="text-xl py-2 text-center border-b border-gray-200 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <h1>My Donation Request </h1>
+                    </div>
 
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -112,6 +116,9 @@ const RequestPage = () => {
                           <tr>
                             <th scope="col" className="px-6 py-3">
                               Food Image
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                              Food Name
                             </th>
                             <th scope="col" className="px-6 py-3">
                               Food Donar Name
@@ -131,7 +138,7 @@ const RequestPage = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {allData.map((singleDonationData) => (
+                          {myRequest.map((singleDonationData) => (
                             <tr
                               key={singleDonationData?._id}
                               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -143,6 +150,13 @@ const RequestPage = () => {
                                   alt="Jese image"
                                 />
                               </td>
+
+                              <td className="px-6 py-4">
+                                <div className="text-base font-semibold flex items-center text-black">
+                                  {singleDonationData?.foodName}
+                                </div>
+                              </td>
+
                               <td className="flex justify-start px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
                                   className="w-10 h-10 rounded-full"
@@ -167,13 +181,11 @@ const RequestPage = () => {
 
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
                                   {singleDonationData?.requestDate}
                                 </div>
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
                                   {singleDonationData?.requestTime}
                                 </div>
                               </td>
@@ -382,20 +394,26 @@ const RequestPage = () => {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  <div className="min-h-[60vh] flex justify-center items-center"><h1>No Request Available</h1></div>
                 )}
               </div>
             ) : (
               <div>
-                {allData?.length > 0 ? (
-                  <div className="my-12">
-                    <h1>Community Request </h1>
+                {communityRequest?.length > 0 ? (
+                  <div className="my-4">
+                    <div className="text-xl py-2 text-center border-b border-gray-200 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <h1>Community Request </h1>
+                    </div>
+
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                           <tr>
                             <th scope="col" className="px-6 py-3">
                               Food Image
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                              Food Name
                             </th>
                             <th scope="col" className="px-6 py-3">
                               Food Requester Details
@@ -415,7 +433,7 @@ const RequestPage = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {allData.map((singleDonationData) => (
+                          {communityRequest.map((singleDonationData) => (
                             <tr
                               key={singleDonationData?._id}
                               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -426,6 +444,11 @@ const RequestPage = () => {
                                   src={singleDonationData?.foodImage}
                                   alt="Jese image"
                                 />
+                              </td>
+                              <td className="px-6 py-4">
+                                <div className="text-base font-semibold flex items-center text-black">
+                                  {singleDonationData?.foodName}
+                                </div>
                               </td>
                               <td className="flex justify-start px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
@@ -444,20 +467,18 @@ const RequestPage = () => {
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
+                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
                                   {singleDonationData?.requestStatus}
                                 </div>
                               </td>
 
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
                                   {singleDonationData?.requestDate}
                                 </div>
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
                                   {singleDonationData?.requestTime}
                                 </div>
                               </td>
@@ -666,7 +687,7 @@ const RequestPage = () => {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  <div className="min-h-[60vh] flex justify-center items-center"><h1>No Request Available</h1></div>
                 )}
               </div>
             )}
@@ -674,7 +695,7 @@ const RequestPage = () => {
         </div>
       ) : (
         <div className="text-2xl flex justify-center items-center h-[80vh]">
-          No Items Added to Cart
+          You Don&apos;t have any request
         </div>
       )}
     </div>

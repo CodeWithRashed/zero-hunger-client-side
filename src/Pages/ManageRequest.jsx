@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useLoaderData } from "react-router-dom";
+import { Delivered, Pending } from "../Components/Status/Status";
 
 const ManageRequest = () => {
   const { activeUser } = useContext(GlobalDataContext);
@@ -85,32 +86,35 @@ const ManageRequest = () => {
   //   };
 
   return (
-    <div>
+    <div className="my-10">
       {requestData ? (
-        <div className="flex gap-5 justify-between">
+        <div className="flex gap-5 justify-between ">
           {/* Food Details */}
           <div className="flex gap-5 w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="w-1/2 h-full">
-              <img className="object-cover" src={""} alt="" />
+              <img
+                className="object-cover"
+                src={requestedFood?.foodImage}
+                alt=""
+              />
             </div>
 
-            <div className="">
+            <div className=" w-1/2">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                {requestedFood?.foodName}
               </h5>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+                {requestedFood?.additionalNote}
               </p>
-              {/* Food Details Inside Donar */}
-              <div>
-                <ul className="text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                  <div className="flex">
+              {/* Food Details*/}
+              <div className="w-full">
+                <ul className="text-sm w-full font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <div className="flex w-full">
                     <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                       Quantity
                     </li>
                     <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
-                      {"requestedFood?.foodQuantity"}
+                      {requestedFood?.foodQuantity}
                     </li>
                   </div>
                   <div className="flex">
@@ -118,15 +122,27 @@ const ManageRequest = () => {
                       Expire Date
                     </li>
                     <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
-                      {"requestedFood?.expireDate"}
+                      {requestedFood?.expireDate}
                     </li>
                   </div>
                   <div className="flex">
                     <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      Expire Date
+                      Request Date
                     </li>
                     <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
-                      {"requestedFood?.expireDate"}
+                      {requestData?.requestDate}
+                    </li>
+                  </div>
+                  <div className="flex w-full">
+                    <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      Request Status
+                    </li>
+                    <li className="w-full px-4 py-2 border border-gray-200  dark:border-gray-600">
+                      {requestData?.requestStatus == "Pending" ? (
+                        <Pending></Pending>
+                      ) : (
+                        <Delivered></Delivered>
+                      )}
                     </li>
                   </div>
                 </ul>
@@ -136,31 +152,34 @@ const ManageRequest = () => {
 
           {/* Request Details */}
           <div className="min-w-[250px] p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <h5 className="mb-5  border-b border-gray-200 text-xl text-center  font-medium text-gray-900 dark:text-white">
+                Requester
+              </h5>
             <div className="flex flex-col items-center pb-10">
               <img
                 className="w-24 h-24 mb-3 rounded-full shadow-lg"
-                src={"foodData.donarImage"}
-                alt={"foodData.donarName"}
+                src={requestData?.requesterImage}
+                alt={requestData?.requesterName}
               />
               <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                {"foodData.donarName"}
+                {requestData?.requesterName}
               </h5>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                Total Donation: {donationCount} Times
+               {requestData?.requesterEmail}
               </span>
               <div className="flex mt-4 space-x-3 md:mt-6">
                 <a
                   href="#"
                   className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  View Details
+                 Accept Request
                 </a>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex min-h-[50vh] justify-center items-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <h1>No One Requested For This Food</h1>
         </div>
       )}
