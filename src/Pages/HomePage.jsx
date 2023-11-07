@@ -1,8 +1,7 @@
 import AccessoriesSection from "../Components/AccessoriesSection/AccessoriesSection"
 import Banner from "../Components/Banner/Banner"
 import ItemsContainer from "../Components/CarITems/ItemsContainer"
-import CategoryContainer from "../Components/Category/CategoryContainer"
-import ProductSection from "../Components/ProductsSection/ProductSection"
+import FeatureFood from "../Components/FeatureFoodSection/FeatureFood"
 
 const HomePage = () => {
    
@@ -10,8 +9,7 @@ const HomePage = () => {
     <div >
      <Banner></Banner>
      <ItemsContainer></ItemsContainer>
-     <CategoryContainer></CategoryContainer>
-     <ProductSection></ProductSection>
+     <FeatureFood></FeatureFood>
      <AccessoriesSection></AccessoriesSection>
     </div>
   )

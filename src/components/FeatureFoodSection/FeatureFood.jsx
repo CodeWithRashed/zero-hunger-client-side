@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchFoodData } from "../../Hooks/fetchData";
 import SectionTitle from "../SectionTitle/SectionTitle";
 import { Link } from "react-router-dom";
-const ProductSection = () => {
+const FeatureFood = () => {
   const [productData, setProductData] = useState([]);
   useEffect(() => {
     fetchFoodData().then((data) => {
@@ -87,4 +87,4 @@ const ProductSection = () => {
   );
 };
 
-export default ProductSection;
+export default FeatureFood;
