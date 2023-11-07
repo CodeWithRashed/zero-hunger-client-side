@@ -1,7 +1,8 @@
-import AccessoriesSection from "../Components/AccessoriesSection/AccessoriesSection"
+import TopDonar from "../Components/TopDonar/TopDonar"
 import Banner from "../Components/Banner/Banner"
 import ItemsContainer from "../Components/CarITems/ItemsContainer"
 import FeatureFood from "../Components/FeatureFoodSection/FeatureFood"
+import DonationForm from "../Components/DonationForm.jsx/DonationForm"
 
 const HomePage = () => {
    
@@ -10,7 +11,8 @@ const HomePage = () => {
      <Banner></Banner>
      <ItemsContainer></ItemsContainer>
      <FeatureFood></FeatureFood>
-     <AccessoriesSection></AccessoriesSection>
+     <TopDonar></TopDonar>
+     <DonationForm></DonationForm>
     </div>
   )
 }
