@@ -101,7 +101,6 @@ const ManageSingleRequest = () => {
     try {
       updateFoodStatus()
       updateRequestStatus()
-      console.log("Accsepted");
     } catch {
       ("");
     }
