@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { fetchFoodData } from "../Hooks/fetchData";
-import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
-import { BiSolidDonateHeart, BiSolidUserCircle } from "react-icons/bi";
+import { BiSad, BiSolidDonateHeart, BiSolidUserCircle } from "react-icons/bi";
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
@@ -35,7 +33,6 @@ const AllRequestPage = () => {
 
   const handleAccept = async (foodId, requestId) => {
     const updateStatus = "Delivered";
-
 
     const updatedData = {
       updateStatus,
@@ -197,7 +194,7 @@ const AllRequestPage = () => {
                               </td>
 
                               <td className="px-6 py-4">
-                                <div className="text-base font-semibold flex items-center text-black">
+                                <div className="text-base font-semibold flex items-center text-gray-900 dark:text-white">
                                   {singleDonationData?.foodName}
                                 </div>
                               </td>
@@ -292,8 +289,11 @@ const AllRequestPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="min-h-[60vh] flex justify-center items-center">
-                    <h1>No Request Available</h1>
+                  <div className="flex min-h-[50vh] justify-center flex-col items-center w-full p-4 bg-white  rounded-lg shadow dark:bg-gray-800 ">
+                    <BiSad className="text-4xl font-semibold text-gray-900 dark:text-white"></BiSad>
+                    <h1 className=" text-xl md:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">
+                      You Have&apos;t Made Any Request Yet!!
+                    </h1>
                   </div>
                 )}
               </div>
@@ -346,7 +346,7 @@ const AllRequestPage = () => {
                                 />
                               </td>
                               <td className="px-6 py-4">
-                                <div className="text-base font-semibold flex items-center text-black">
+                                <div className="text-base font-semibold flex items-center text-gray-900 dark:text-white">
                                   {singleDonationData?.foodName}
                                 </div>
                               </td>
@@ -458,8 +458,11 @@ const AllRequestPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="min-h-[60vh] flex justify-center items-center">
-                    <h1>No Request Available</h1>
+                  <div className="flex min-h-[50vh] justify-center flex-col items-center w-full p-4 bg-white  rounded-lg shadow dark:bg-gray-800 ">
+                    <BiSad className="text-7xl font-semibold text-gray-900 dark:text-white"></BiSad>
+                    <h1 className=" text-xl md:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">
+                      No Request Available For Your Foods
+                    </h1>
                   </div>
                 )}
               </div>
@@ -467,8 +470,11 @@ const AllRequestPage = () => {
           </div>
         </div>
       ) : (
-        <div className="text-2xl flex justify-center items-center h-[80vh]">
-          You Don&apos;t have any request
+        <div className="flex min-h-[50vh] justify-center flex-col items-center w-full p-4 bg-white  rounded-lg shadow dark:bg-gray-800 ">
+          <BiSad className="text-7xl font-semibold text-gray-900 dark:text-white"></BiSad>
+          <h1 className=" text-xl md:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">
+            No Request Available
+          </h1>
         </div>
       )}
     </div>
