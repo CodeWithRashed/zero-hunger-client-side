@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 
 const AddFood = () => {
   const { activeUser } = useContext(GlobalDataContext);
@@ -63,6 +64,9 @@ const AddFood = () => {
   };
   return (
     <div className="py-[5%] my-20 text-2xl px-6 pt-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <Helmet>
+        <title>Zero Hunger | Add Food</title>
+      </Helmet>
       <div className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
         <div className="w-full">
           <h1
@@ -239,14 +243,13 @@ const AddFood = () => {
             />
           </div>
           <div className="!w-full flex justify-center items-centers">
-          <button 
-            type="submit"
-            className="text-white !w-1/4  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Submit
-          </button>
+            <button
+              type="submit"
+              className="text-white !w-1/4  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
           </div>
-          
         </form>
       </div>
     </div>

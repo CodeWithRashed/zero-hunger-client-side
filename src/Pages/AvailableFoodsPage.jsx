@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { CiCircleRemove } from "react-icons/ci";
 import { BiMapPin } from "react-icons/bi";
 import { CiCalendarDate } from "react-icons/ci";
+import { Helmet } from "react-helmet";
 
 const AvailableFoodsPage = () => {
   const [foodData, setFoodData] = useState([]);
@@ -47,6 +48,9 @@ const AvailableFoodsPage = () => {
   return (
     <div>
       {/* banner */}
+      <Helmet>
+        <title>Zero Hunger | Foods</title>
+      </Helmet>
       <div>
         <div
           className="slider-1 h-[80vh] flex relative"

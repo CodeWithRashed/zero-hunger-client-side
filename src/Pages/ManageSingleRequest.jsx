@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useLoaderData } from "react-router-dom";
 import { Delivered, Pending } from "../Components/Status/Status";
 import { BiSad } from "react-icons/bi";
+import { Helmet } from "react-helmet";
 
 const ManageSingleRequest = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -108,7 +109,11 @@ const ManageSingleRequest = () => {
   };
 
   return (
+    
     <div className="my-10">
+       <Helmet>
+        <title>Zero Hunger | Request</title>
+      </Helmet>
       {requestData ? (
         <div className="grid gap-5 lg:grid-cols-3 justify-between ">
           {/* Food Details */}

@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const UpdateFood = () => {
   const { activeUser } = useContext(GlobalDataContext);
@@ -70,6 +71,9 @@ const UpdateFood = () => {
   };
   return (
     <div className="py-[5%] text-2xl">
+       <Helmet>
+        <title>Zero Hunger | Update Food</title>
+      </Helmet>
       <div className="text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
         <div className="w-full">
           <h1

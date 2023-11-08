@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 const FoodDetails = () => {
@@ -91,6 +92,9 @@ const FoodDetails = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Zero Hunger | Food Details</title>
+      </Helmet>
       <div className="w-full flex gap-5">
         {/* Food Details */}
         <div className="">

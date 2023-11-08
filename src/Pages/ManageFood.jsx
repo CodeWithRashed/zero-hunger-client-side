@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { TbMoodEmpty } from "react-icons/tb";
 import {  BiSolidAddToQueue } from 'react-icons/bi';
+import { Helmet } from "react-helmet";
 
 const ManageFood = () => {
   const [foodData, setFoodData] = useState([]);
@@ -133,6 +134,9 @@ const ManageFood = () => {
 
   return (
     <div className="my-10 min-h-[50vh]">
+       <Helmet>
+        <title>Zero Hunger | Manage</title>
+      </Helmet>
       {foodData.length > 0 ? (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <Table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
