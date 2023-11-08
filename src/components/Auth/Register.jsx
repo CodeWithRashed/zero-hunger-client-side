@@ -53,11 +53,13 @@ const Register = ({ setPageToggle }) => {
         await response.json();
         setPassError(null);
         setUserPhoto(imageUrl);
-        userInfoUpdate(name, imageUrl);
+        await userInfoUpdate(name, imageUrl)
+        
         // Email And Password Registration
-        form.reset()
+        
         await createEmailUser(email, password);
        
+        
         //Toast Alert
         toast.success("Account Created, Redirecting", {
           position: "top-center",
@@ -74,7 +76,7 @@ const Register = ({ setPageToggle }) => {
         }, 2000);
       }
     } finally {
-      ("");
+      form.reset()
     }
   };
 

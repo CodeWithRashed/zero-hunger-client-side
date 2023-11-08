@@ -26,6 +26,7 @@ const Nav = () => {
   };
 
   useEffect(() => {
+    console.log(activeUser)
     const htmlElement = document.querySelector("html");
     const localTheme = localStorage.getItem("theme");
 

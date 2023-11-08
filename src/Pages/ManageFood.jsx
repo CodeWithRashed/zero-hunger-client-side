@@ -9,13 +9,15 @@ import { GlobalDataContext } from "../ContextApi/DataContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { TbMoodEmpty } from "react-icons/tb";
+import {  BiSolidAddToQueue } from 'react-icons/bi';
 
 const ManageFood = () => {
   const [foodData, setFoodData] = useState([]);
   const { activeUser } = useContext(GlobalDataContext);
   const [openModal, setOpenModal] = useState(false);
   const [targetId, setTargetId] = useState("");
-  const [doRefetch, setDoRefetch] = useState(null)
+  const [doRefetch, setDoRefetch] = useState(null);
   useEffect(() => {
     fetch(
       `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/${
@@ -38,7 +40,7 @@ const ManageFood = () => {
     )
       .then((res) => res.json())
       .then(() => {
-        setDoRefetch(Math.random())
+        setDoRefetch(Math.random());
         toast.success("Food Deleted!!", {
           position: "top-center",
           autoClose: 2000,
@@ -131,41 +133,63 @@ const ManageFood = () => {
 
   return (
     <div className="my-10 min-h-[50vh]">
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-
-      <Table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        {table.getHeaderGroups().map((headerGroup) => (
-          <Table.Head className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <Table.HeadCell scope="col" className="px-6 py-3" key={header?.id}>
-                {header?.column?.columnDef?.header}
-              </Table.HeadCell>
+      {foodData.length > 0 ? (
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <Table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <Table.Head
+                className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                key={headerGroup.id}
+              >
+                {headerGroup.headers.map((header) => (
+                  <Table.HeadCell
+                    scope="col"
+                    className="px-6 py-3"
+                    key={header?.id}
+                  >
+                    {header?.column?.columnDef?.header}
+                  </Table.HeadCell>
+                ))}
+              </Table.Head>
             ))}
-          </Table.Head>
-        ))}
 
-        <Table.Body className="divide-y">
-          {table.getRowModel().rows?.map((row) => (
-            <Table.Row
-              key={row?.id}
-              className="bg-white dark:border-gray-700 dark:bg-gray-800"
-            >
-              {row.getVisibleCells().map((cell) => (
-                <Table.Cell
-                  className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
-                  key={cell?.id}
+            <Table.Body className="divide-y">
+              {table.getRowModel().rows?.map((row) => (
+                <Table.Row
+                  key={row?.id}
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
                 >
-                  {flexRender(
-                    cell?.column?.columnDef?.cell,
-                    cell?.getContext()
-                  )}
-                </Table.Cell>
+                  {row.getVisibleCells().map((cell) => (
+                    <Table.Cell
+                      className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                      key={cell?.id}
+                    >
+                      {flexRender(
+                        cell?.column?.columnDef?.cell,
+                        cell?.getContext()
+                      )}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
               ))}
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-      </div>
+            </Table.Body>
+          </Table>
+        </div>
+      ) : (
+        <div className="flex min-h-[50vh] justify-center flex-col items-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <TbMoodEmpty className="text-4xl font-semibold text-gray-900 dark:text-white"></TbMoodEmpty>
+          <h1 className=" text-xl md:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">
+            You Have&apos;t added any food yet
+          </h1>
+          <Link to="/add">
+          <Button className="mt-4">
+            <BiSolidAddToQueue className="mr-2 h-5 w-5" />
+            Add Now
+          </Button>
+          </Link>
+          
+        </div>
+      )}
 
       {/* Delete Working Modal */}
       <Modal
