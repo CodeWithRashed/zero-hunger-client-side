@@ -131,11 +131,13 @@ const ManageFood = () => {
 
   return (
     <div className="my-10 min-h-[50vh]">
-      <Table>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+      <Table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         {table.getHeaderGroups().map((headerGroup) => (
-          <Table.Head className="tr" key={headerGroup.id}>
+          <Table.Head className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <Table.HeadCell key={header?.id}>
+              <Table.HeadCell scope="col" className="px-6 py-3" key={header?.id}>
                 {header?.column?.columnDef?.header}
               </Table.HeadCell>
             ))}
@@ -163,6 +165,7 @@ const ManageFood = () => {
           ))}
         </Table.Body>
       </Table>
+      </div>
 
       {/* Delete Working Modal */}
       <Modal

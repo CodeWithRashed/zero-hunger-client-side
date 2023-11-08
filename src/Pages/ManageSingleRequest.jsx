@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BiSolidDonateHeart, BiSolidUserCircle } from "react-icons/bi";
+import { BiSolidDonateHeart, BiSad } from "react-icons/bi";
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useContext, useEffect } from "react";
@@ -262,8 +262,9 @@ const ManageSingleRequest = () => {
           </div>
         </div>
       ) : (
-        <div className="flex min-h-[50vh] justify-center items-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <h1>No One Requested For This Food</h1>
+        <div className="flex min-h-[50vh] justify-center flex-col items-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+         <BiSad className="text-4xl font-semibold text-gray-900 dark:text-white"></BiSad>
+          <h1 className=" text-xl md:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-white">No One Requested For This Food</h1>
         </div>
       )}
     </div>
