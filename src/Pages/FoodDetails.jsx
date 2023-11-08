@@ -1,15 +1,13 @@
-
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { Card } from "flowbite-react";
-
+import { BiMapPin } from "react-icons/bi";
 import { useContext, useEffect } from "react";
 
 import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
 
 const FoodDetails = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -30,7 +28,7 @@ const FoodDetails = () => {
 
   useEffect(() => {
     fetch(
-      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/${userEmail}`
+      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods?email=${userEmail}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -40,9 +38,7 @@ const FoodDetails = () => {
   }, [userEmail]);
 
   const handleFoodRequest = async () => {
-
-
-    if(foodData?.donarEmail == activeUser?.email){
+    if (foodData?.donarEmail == activeUser?.email) {
       toast.error("You Can Not Request Your Own Food", {
         position: "top-center",
         autoClose: 2000,
@@ -52,8 +48,8 @@ const FoodDetails = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
-      return
+      });
+      return;
     }
 
     const requestFoodData = {
@@ -62,12 +58,12 @@ const FoodDetails = () => {
       foodImage: foodData.foodImage,
       donarImage: foodData.donarImage,
       requesterName: activeUser.displayName,
-      requesterImage:activeUser.photoURL,
+      requesterImage: activeUser.photoURL,
       donarName: foodData.donarName,
       requesterEmail: activeUser.email,
       donarEmail: foodData.donarEmail,
       donationAmount: donationAmount,
-      requestDate: new Date().toISOString().split('T')[0],
+      requestDate: new Date().toISOString().split("T")[0],
       requestTime: new Date().toISOString().split("T")[1].split(".")[0],
       requestStatus: "Pending",
     };
@@ -94,24 +90,33 @@ const FoodDetails = () => {
 
   return (
     <div>
-       <Helmet>
+      <Helmet>
         <title>Zero Hunger | Food Details</title>
       </Helmet>
-      <div className="w-full flex gap-5">
+      <div className="w-full lg:flex-row flex-col flex gap-5">
         {/* Food Details */}
-        <div className="">
+        <div className="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <div>
             <img className="object-cover" src={foodData?.foodImage} alt="" />
           </div>
-
-          <div className="">
-            <h5 className="mb-2 mt-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
-            </h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
+          <div className="flex justify-between px-5">s
+            <div className="">
+              <h5 className="mb-2 mt-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {foodData?.foodName}
+              </h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                {foodData?.additionalNote}
+              </p>
+            </div>
+            <div className="">
+              <h5 className="flex justify-center items-center mb-2 mt-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <BiMapPin></BiMapPin>
+                <span>{foodData?.pickupLocation}</span>
+              </h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Available for {foodData?.foodQuantity} People
+              </p>
+            </div>
           </div>
         </div>
 
@@ -281,10 +286,9 @@ const FoodDetails = () => {
                       </label>
                       <input
                         onChange={(event) => {
-                          setDonationAmount(event.target.value || 0)
+                          setDonationAmount(event.target.value || 0);
                         }}
                         type="number"
-                      
                         name="request_date"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Enter Donation Amount"
@@ -300,7 +304,7 @@ const FoodDetails = () => {
                         Pickup Location
                       </label>
                       <input
-                      disabled
+                        disabled
                         defaultValue={foodData?.pickupLocation}
                         type="text"
                         name="location"
@@ -318,12 +322,10 @@ const FoodDetails = () => {
                         Additional Note
                       </label>
                       <input
-                        
                         type="text"
                         name="additionalNote"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Some Note..."
-                        
                       />
                     </div>
                   </div>
@@ -347,37 +349,39 @@ const FoodDetails = () => {
         </div>
       </div>
       {/* Displaying User Specific Foods */}
-      <div className="mt-10">
-        <div className="text-xl my-8 text-center">
-          <h1>Food Donated By {foodData.donarName}</h1>
-        </div>
-        <div className="grid grid-cols-3 gap-5">
-          {userFoodData?.map((food) => (
-            <div key={food._id}>
-              <Card
-                className="max-w-sm"
-                imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-                imgSrc={food.foodImage}
-              >
-                <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {food.foodName}
-                  </h5>
-                </a>
-
-                <div className="flex w-full items-center justify-center">
-                  <a
-                    href="#"
-                    className="w-full rounded-lg bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-                  >
-                    View More
+      {userFoodData.length > 0 && (
+        <div className="mt-10">
+          <div className="text-xl my-8 text-center">
+            <h1 className="text-3xl text-gray-900 dark:text-white">Food Donated By {foodData.donarName}</h1>
+          </div>
+          <div className="grid md:grid-cols-2 justify-center lg:grid-cols-3 gap-5">
+            {userFoodData?.map((food) => (
+              <div key={food._id}>
+                <Card
+                  className=" h-[350px] w-[350px] overflow-hidden"
+                  imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
+                  imgSrc={food.foodImage}
+                >
+                  <a href="#">
+                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                      {food.foodName}
+                    </h5>
                   </a>
-                </div>
-              </Card>
-            </div>
-          ))}
+
+                  <div className="flex w-full items-center justify-center">
+                    <a
+                      href="#"
+                      className="w-full rounded-lg bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+                    >
+                      View More
+                    </a>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

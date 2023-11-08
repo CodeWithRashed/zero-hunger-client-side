@@ -21,9 +21,12 @@ const ManageFood = () => {
   const [doRefetch, setDoRefetch] = useState(null);
   useEffect(() => {
     fetch(
-      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/${
+      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods?email=${
         activeUser?.email
-      }`
+      }`, {
+        credentials: "include"
+      }
+      
     )
       .then((res) => res.json())
       .then((data) => {

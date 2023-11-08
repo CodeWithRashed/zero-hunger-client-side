@@ -95,8 +95,9 @@ const Nav = () => {
               
 
               <Dropdown.Divider />
+              
               <Dropdown.Item>
-                <button
+                <button className="w-full"
                   onClick={() => {
                     userLogout();
                     toast.success("Logout Successful", {
@@ -150,6 +151,8 @@ const Nav = () => {
               Available Food
             </NavLink>
           </Navbar.Link>
+          {
+            activeUser && 
           <Navbar.Link>
             <NavLink
               to="/add"
@@ -164,6 +167,9 @@ const Nav = () => {
               Add Food
             </NavLink>
           </Navbar.Link>
+          }
+          {
+            activeUser &&
           <Navbar.Link>
             <NavLink
               to="/manage"
@@ -178,6 +184,7 @@ const Nav = () => {
               Manage Food
             </NavLink>
           </Navbar.Link>
+          }
           <Navbar.Link>
             <NavLink
               to="/request"

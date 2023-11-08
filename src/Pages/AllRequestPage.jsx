@@ -27,11 +27,11 @@ const AllRequestPage = () => {
         let communityRequest = data?.filter((singleData) =>
           singleData?.donarEmail.includes(userEmail)
         );
-
         setMyRequest(myRequest);
         setCommunityRequest(communityRequest);
         setAllData(data);
       });
+      
   }, [userEmail, openModal, doRefetch]);
 
   const handleAccept = async (foodId, requestId) => {
@@ -211,15 +211,15 @@ const AllRequestPage = () => {
                               <td className="flex justify-start px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
                                   className="w-10 h-10 rounded-full"
-                                  src={singleDonationData?.requesterImage}
-                                  alt="Jese image"
+                                  src={singleDonationData?.donarImage}
+                                  alt={singleDonationData?.donarName}
                                 />
                                 <div className="pl-3">
                                   <div className="text-base font-semibold">
-                                    {singleDonationData?.requesterName}
+                                    {singleDonationData?.donarName}
                                   </div>
                                   <div className="font-normal text-gray-500">
-                                    {singleDonationData?.requesterEmail}
+                                    {singleDonationData?.donarEmail}
                                   </div>
                                 </div>
                               </td>

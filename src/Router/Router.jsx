@@ -11,6 +11,7 @@ import AvailableFoodsPage from "../Pages/AvailableFoodsPage";
 import PrivateRoute from '../Router/PrivateRoute'
 import AllRequestPage from "../Pages/AllRequestPage";
 import UpdateFood from "../Pages/UpdateFood";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
       {
         path: "/manage",
         element: <PrivateRoute><ManageFood></ManageFood></PrivateRoute>,
-        loader: () => fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods/tools.rashed@gmail.com`)
+        
       },
       {
         path: "/request",
