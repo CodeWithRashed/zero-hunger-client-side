@@ -168,7 +168,10 @@ const AllRequestPage = () => {
                               Food Name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                              Food Donar Name
+                              Donar Details
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                              Donation
                             </th>
                             <th scope="col" className="px-6 py-3">
                               Request Status
@@ -217,6 +220,12 @@ const AllRequestPage = () => {
                                   <div className="font-normal text-gray-500">
                                     {singleDonationData?.requesterEmail}
                                   </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4">
+                                <div className="flex items-center">
+                                  
+                                  {singleDonationData?.donationAmount || 0}$
                                 </div>
                               </td>
                               <td className="px-6 py-4">
@@ -321,7 +330,10 @@ const AllRequestPage = () => {
                               Food Name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                              Food Requester Details
+                              Requester Details
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                              Donation
                             </th>
                             <th scope="col" className="px-6 py-3">
                               Request Status
@@ -347,7 +359,7 @@ const AllRequestPage = () => {
                                 <img
                                   className="w-40 h-12 rounded-xl object-cover"
                                   src={singleDonationData?.foodImage}
-                                  alt="Jese image"
+                                  alt=""
                                 />
                               </td>
                               <td className="px-6 py-4">
@@ -368,6 +380,12 @@ const AllRequestPage = () => {
                                   <div className="font-normal text-gray-500">
                                     {singleDonationData?.requesterEmail}
                                   </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4">
+                                <div className="flex items-center">
+                                  
+                                  {singleDonationData?.donationAmount || 0}$
                                 </div>
                               </td>
                               <td className="px-6 py-4">
