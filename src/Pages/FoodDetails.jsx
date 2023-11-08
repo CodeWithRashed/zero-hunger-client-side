@@ -18,6 +18,7 @@ const FoodDetails = () => {
   const foodData = useLoaderData();
   const [userFoodData, setUserFoodData] = useState([]);
   const [donationCount, setDonationCount] = useState([]);
+  const [donationAmount, setDonationAmount] = useState("");
 
   const currentDate = new Date();
 
@@ -65,6 +66,7 @@ const FoodDetails = () => {
       donarName: foodData.donarName,
       requesterEmail: activeUser.email,
       donarEmail: foodData.donarEmail,
+      donationAmount: donationAmount,
       requestDate: new Date().toISOString().split('T')[0],
       requestTime: new Date().toISOString().split("T")[1].split(".")[0],
       requestStatus: "Pending",
@@ -270,7 +272,27 @@ const FoodDetails = () => {
                       />
                     </div>
 
-                    <div className="mb-6 col-span-2">
+                    <div>
+                      <label
+                        htmlFor="request_date"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Donation Amount
+                      </label>
+                      <input
+                        onChange={(event) => {
+                          setDonationAmount(event.target.value || 0)
+                        }}
+                        type="number"
+                      
+                        name="request_date"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter Donation Amount"
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-6">
                       <label
                         htmlFor="location"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -278,12 +300,30 @@ const FoodDetails = () => {
                         Pickup Location
                       </label>
                       <input
+                      disabled
                         defaultValue={foodData?.pickupLocation}
                         type="text"
                         name="location"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Enter Pickup Location"
                         required
+                      />
+                    </div>
+
+                    <div className="mb-6 col-span-2">
+                      <label
+                        htmlFor="location"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Additional Note
+                      </label>
+                      <input
+                        
+                        type="text"
+                        name="additionalNote"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Some Note..."
+                        
                       />
                     </div>
                   </div>
