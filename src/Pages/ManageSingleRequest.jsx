@@ -109,9 +109,8 @@ const ManageSingleRequest = () => {
   };
 
   return (
-    
     <div className="my-10">
-       <Helmet>
+      <Helmet>
         <title>Zero Hunger | Request</title>
       </Helmet>
       {requestData ? (
@@ -198,6 +197,7 @@ const ManageSingleRequest = () => {
                 <td className="px-6 py-4">
                   {/* <!-- Modal toggle --> */}
                   <button
+                    disabled={acceptButtonStatus == "disabled"}
                     onClick={() => {
                       setOpenModal(true);
                     }}
@@ -205,8 +205,10 @@ const ManageSingleRequest = () => {
                     data-modal-target="editUserModal"
                     data-modal-show="editUserModal"
                     className={`${
-                      acceptButtonStatus && "cursor-not-allowed"
-                    } text-white px-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  py-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center`}
+                      acceptButtonStatus
+                        ? "cursor-not-allowed bg-gray-500 hover:bg-gray-600 font-medium rounded-lg text-sm  py-2 text-center mr-2 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 inline-flex items-center px-2 text-white"
+                        : "text-white px-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  py-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                    } `}
                   >
                     {loadingStatus && (
                       <svg

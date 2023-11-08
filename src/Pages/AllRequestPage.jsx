@@ -14,7 +14,7 @@ const AllRequestPage = () => {
   const [myRequest, setMyRequest] = useState([]);
   const [communityRequest, setCommunityRequest] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [doRefetch, setDoRefetch] = useState(1)
+  const [doRefetch, setDoRefetch] = useState(1);
   const userEmail = activeUser.email;
 
   useEffect(() => {
@@ -31,7 +31,6 @@ const AllRequestPage = () => {
         setCommunityRequest(communityRequest);
         setAllData(data);
       });
-      
   }, [userEmail, openModal, doRefetch]);
 
   const handleAccept = async (foodId, requestId) => {
@@ -109,7 +108,7 @@ const AllRequestPage = () => {
 
   return (
     <div className="my-12">
-       <Helmet>
+      <Helmet>
         <title>Zero Hunger | All Request</title>
       </Helmet>
       {allData?.length > 0 ? (
@@ -225,14 +224,23 @@ const AllRequestPage = () => {
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  
                                   {singleDonationData?.donationAmount || 0}$
                                 </div>
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>{" "}
-                                  {singleDonationData?.requestStatus}
+                                  {singleDonationData?.requestStatus ==
+                                  "Pending" ? (
+                                    <div className="flex justify-center items-center">
+                                      <div className="h-2.5 w-2.5 rounded-full bg-orange-500 mr-2"></div>
+                                      {singleDonationData?.requestStatus}
+                                    </div>
+                                  ) : (
+                                    <div className="flex justify-center items-center">
+                                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                      {singleDonationData?.requestStatus}
+                                    </div>
+                                  )}
                                 </div>
                               </td>
 
@@ -248,16 +256,29 @@ const AllRequestPage = () => {
                               </td>
                               <td className="px-6 py-4">
                                 {/* <!-- Modal toggle --> */}
+
                                 <button
+                                  disabled={
+                                    singleDonationData?.requestStatus ==
+                                    "Delivered"
+                                  }
                                   onClick={() => {
                                     setOpenModal(true);
                                   }}
                                   type="button"
                                   data-modal-target="editUserModal"
                                   data-modal-show="editUserModal"
-                                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                  className={` ${
+                                    singleDonationData?.requestStatus ===
+                                    "Delivered"
+                                      ? "disabled font-medium text-gray-600 dark:text-gray-500"
+                                      : "font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                  }`}
                                 >
-                                  Cancel
+                                  {singleDonationData?.requestStatus ==
+                                  "Pending"
+                                    ? "Cancel"
+                                    : "Accepted"}
                                 </button>
 
                                 <Modal
@@ -281,8 +302,8 @@ const AllRequestPage = () => {
                                             handleRequestDelete(
                                               singleDonationData?._id
                                             );
-                                            setDoRefetch(Math.random())
-                                            console.log(Math.random())
+                                            setDoRefetch(Math.random());
+                                            console.log(Math.random());
                                             setOpenModal(false);
                                           }}
                                         >
@@ -387,7 +408,6 @@ const AllRequestPage = () => {
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  
                                   {singleDonationData?.donationAmount || 0}$
                                 </div>
                               </td>
@@ -409,12 +429,15 @@ const AllRequestPage = () => {
                                 </div>
                               </td>
                               <td className="px-6 py-4">
-                              
                                 <Link
-                                 to={`food/manage/${singleDonationData.foodId}`}
-                                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                             
+                                  to={`${singleDonationData?.requestStatus == "Delivered" ? "" : `food/manage/${singleDonationData.foodId}`} `}
+                                  className={`${
+                                    singleDonationData?.requestStatus == "Delivered"
+                                      ? "cursor-not-allowed bg-gray-500 hover:bg-gray-600 font-medium rounded-lg text-sm  py-2 text-center mr-2 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 inline-flex items-center px-3 text-white"
+                                      : "text-white px-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  py-2 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                  } `}
                                 >
-                            
                                   Manage
                                 </Link>
 
