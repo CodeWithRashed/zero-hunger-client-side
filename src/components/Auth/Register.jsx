@@ -53,11 +53,11 @@ const Register = ({ setPageToggle }) => {
         await response.json();
         setPassError(null);
         setUserPhoto(imageUrl);
-        await userInfoUpdate(name, imageUrl)
-        
-        // Email And Password Registration
         
         await createEmailUser(email, password);
+        // Email And Password Registration
+        
+        await userInfoUpdate(name, imageUrl)
        
         
         //Toast Alert
