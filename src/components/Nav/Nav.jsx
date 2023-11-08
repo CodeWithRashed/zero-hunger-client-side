@@ -68,24 +68,30 @@ const Nav = () => {
               </button>
             )}
           </div>
+          <div className="!z-50">
+
+
           {activeUser && (
             <Dropdown
               arrowIcon={false}
               inline
               label={
-                <Avatar className="!sm:mx-1 lg:mx-0"
+                <Avatar className="!sm:mx-1 lg:mx-0 "
                   alt="User settings"
                   img={userPhoto || activeUser?.photoURL}
                   rounded
                 />
               }
             >
-              <Dropdown.Header>
+              <div className="!z-50">
+              <Dropdown.Header >
                 <span className="block text-sm">{activeUser?.displayName}</span>
                 <span className="block truncate text-sm font-medium">
                   {activeUser?.email}
                 </span>
               </Dropdown.Header>
+              </div>
+              
 
               <Dropdown.Divider />
               <Dropdown.Item>
@@ -109,6 +115,7 @@ const Nav = () => {
               </Dropdown.Item>
             </Dropdown>
           )}
+          </div>
 
           <Navbar.Toggle />
         </div>
