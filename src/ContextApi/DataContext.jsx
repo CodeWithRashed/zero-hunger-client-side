@@ -69,13 +69,15 @@ const DataContext = ({ children }) => {
       .then(res => res.json())
       .then(data => console.log(data))
     } else {
-      fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/auth/jwt`, {
+      // For user logout
+      fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/auth/jwt/clear`, {
         method: "POST",
         credentials: "include",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ userEmail: user.email }),
+
+        body: JSON.stringify({})
       })
       .then(res => res.json())
       .then(data => console.log(data))
