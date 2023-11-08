@@ -25,7 +25,6 @@ const DataContext = ({ children }) => {
   const [userPhoto, setUserPhoto] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   //Create User Email & Pass Func
   const createEmailUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -56,11 +55,33 @@ const DataContext = ({ children }) => {
 
   //Watch User
   onAuthStateChanged(auth, (user) => {
-
     setActiveUser(user);
     setLoading(false);
+    if (user) {
+      fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/auth/jwt`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ userEmail: user.email }),
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+    } else {
+      fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/auth/jwt`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ userEmail: user.email }),
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+    }
   });
-  
+
   //Global Data Export
   const globalDataVariable = {
     createEmailUser,
@@ -71,8 +92,7 @@ const DataContext = ({ children }) => {
     userInfoUpdate,
     setUserPhoto,
     userPhoto,
-    loading
-
+    loading,
   };
   return (
     <GlobalDataContext.Provider value={globalDataVariable}>
