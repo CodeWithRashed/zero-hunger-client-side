@@ -14,6 +14,7 @@ const AllRequestPage = () => {
   const [myRequest, setMyRequest] = useState([]);
   const [communityRequest, setCommunityRequest] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [doRefetch, setDoRefetch] = useState(1)
   const userEmail = activeUser.email;
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const AllRequestPage = () => {
         setCommunityRequest(communityRequest);
         setAllData(data);
       });
-  }, [userEmail, openModal]);
+  }, [userEmail, openModal, doRefetch]);
 
   const handleAccept = async (foodId, requestId) => {
     const updateStatus = "Delivered";
@@ -256,7 +257,7 @@ const AllRequestPage = () => {
                                   data-modal-show="editUserModal"
                                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
-                                  Delete
+                                  Cancel
                                 </button>
 
                                 <Modal
@@ -270,7 +271,7 @@ const AllRequestPage = () => {
                                     <div className="text-center">
                                       <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                                       <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                        Are you sure you want to delete this
+                                        Are you sure you want to cancel this
                                         request?
                                       </h3>
                                       <div className="flex justify-center gap-4">
@@ -280,6 +281,8 @@ const AllRequestPage = () => {
                                             handleRequestDelete(
                                               singleDonationData?._id
                                             );
+                                            setDoRefetch(Math.random())
+                                            console.log(Math.random())
                                             setOpenModal(false);
                                           }}
                                         >
