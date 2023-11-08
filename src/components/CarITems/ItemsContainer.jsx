@@ -5,10 +5,12 @@ const ItemsContainer = () => {
       <p className="w-full mb-4 my-8 text-center text-base font-semibold uppercase text-gray-400 tracking-wider">
         Top Contributors
       </p>
+
+      <h1></h1>
       <Marquee  pauseOnHover={true}>
         <div className="flex">
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20  flex items-center justify-center text-gray-400 hover:text-gray-500"
             title="Ploi"
           >
             <svg className="w-auto h-6 fill-current" viewBox="0 0 253 93.3">
@@ -17,7 +19,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             href="https://www.agiledrop.com/laravel?utm_source=filament"
             title="Agiledrop"
           >
@@ -38,7 +40,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             href="https://codecourse.com"
             title="Codecourse"
           >
@@ -52,7 +54,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             href="https://laradir.com"
             title="Laradir"
           >
@@ -66,7 +68,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             title="Locale"
           >
             <svg className="w-auto h-5 fill-current" viewBox="0 0 631 100">
@@ -84,7 +86,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             href="https://ego-trace.com"
             title="EgoTrace"
           >
@@ -251,7 +253,7 @@ const ItemsContainer = () => {
           </div>
 
           <div
-            className="mx-5 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            className="mx-5 h-20 flex items-center justify-center text-gray-400 hover:text-gray-500"
             href="https://flareapp.io"
             title="Flare"
           >

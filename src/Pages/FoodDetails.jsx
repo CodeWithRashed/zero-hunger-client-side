@@ -99,7 +99,7 @@ const FoodDetails = () => {
           <div>
             <img className="object-cover" src={foodData?.foodImage} alt="" />
           </div>
-          <div className="flex justify-between px-5">s
+          <div className="flex justify-between px-5">
             <div className="">
               <h5 className="mb-2 mt-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {foodData?.foodName}
