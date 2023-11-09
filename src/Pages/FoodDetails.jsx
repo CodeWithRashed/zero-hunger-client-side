@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { GlobalDataContext } from "../ContextApi/DataContext";
 import { useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { fetchFoodData } from "../Hooks/fetchData";
 
 const FoodDetails = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -14,8 +15,8 @@ const FoodDetails = () => {
   const userEmail = activeUser?.email;
   const foodData = useLoaderData();
   const [userFoodData, setUserFoodData] = useState([]);
-  const [donationCount, setDonationCount] = useState([]);
   const [donationAmount, setDonationAmount] = useState("");
+  const [donationCount, setDonationCount] = useState([]);
 
   const currentDate = new Date();
 
@@ -26,18 +27,16 @@ const FoodDetails = () => {
   });
 
   useEffect(() => {
-    fetch(
-      `${
-        import.meta.env.VITE_BACKEND_API
-      }/api/v1/user/get/foods?email=${userEmail}`,
-      { credentials: "include" }
-    )
-      .then((res) => res.json())
+    fetchFoodData()
       .then((data) => {
-        setDonationCount(data.length);
-        setUserFoodData(data.slice(-3));
+        console.log(data)
+        const filteredData = data.filter(
+          (item) => item.donarEmail == foodData?.donarEmail
+        );
+        setDonationCount(filteredData.length);
+        setUserFoodData(filteredData.slice(-3));
       });
-  }, [userEmail]);
+  }, [userEmail, foodData]);
 
   const handleFoodRequest = async () => {
     if (foodData?.donarEmail == activeUser?.email) {
