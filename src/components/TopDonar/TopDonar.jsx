@@ -20,13 +20,13 @@ const TopDonar = () => {
         title="TOP DONORS"
       ></SectionTitle>
 
-      <div className="grid lg:grid-cols-3 gap-5 justify-center lg:justify-between">
+      <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-5 justify-center lg:justify-between">
         {userData.map((singleUser) => (
           <div key={singleUser?._id}>
-            <Card className="max-w-sm">
+            <Card className="w-full">
               <div className="flex flex-col items-center pb-10">
               <img
-                  alt="Bonnie image"
+                  alt={singleUser?.name}
                   height="96"
                   src={singleUser?.imageUrl}
                   width="96"

@@ -235,7 +235,7 @@ const Login = ({ setPageToggle }) => {
                        
                         
                       >
-                        Sign Up
+                        Sign In
                       </Button>
                       
                     </div>

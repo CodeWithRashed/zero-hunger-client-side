@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
       {
         path: "/food/update/:id",
         element: <PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${params.id}`)
+        loader: ({params})=> fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${params.id}` , {credentials: "include"})
       }
     
     ],
