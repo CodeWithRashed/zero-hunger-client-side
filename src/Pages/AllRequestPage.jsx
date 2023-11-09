@@ -303,7 +303,6 @@ const AllRequestPage = () => {
                                               singleDonationData?._id
                                             );
                                             setDoRefetch(Math.random());
-                                            console.log(Math.random());
                                             setOpenModal(false);
                                           }}
                                         >

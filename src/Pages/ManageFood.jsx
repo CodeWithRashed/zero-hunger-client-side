@@ -175,7 +175,6 @@ const ManageFood = () => {
                       className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
                       key={cell?.id}
                     >
-                      {/* {console.log(cell.column?.columnDef)} */}
                       {flexRender(
                         cell?.column?.columnDef?.cell,
                         cell?.getContext()
@@ -239,12 +238,3 @@ const ManageFood = () => {
 };
 
 export default ManageFood;
-
-        // axios.get(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${info.getValue()}`, {withCredentials: true})
-        // .then(res => {
-        //   if(res.data.deliveryStatus == "Delivered"){
-        //     console.log("delivered")
-        //   }else{
-        //     console.log("Pending")
-        //   }
-        // }),

@@ -8,7 +8,7 @@ const TopDonar = () => {
     fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/users`)
       .then((res) => res.json())
       .then((data) => {
-        setUserData(data.slice(-3));
+        setUserData(data.slice(0, 3));
       });
   }, []);
   // /

@@ -24,14 +24,13 @@ const ManageSingleRequest = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setRequestedFood(data);
         });
     }
     if (requestData?.requestStatus == "Delivered") {
       setAcceptButtonStatus("disabled");
     }
-  }, [requestData]);
+  }, [requestData, refetchData]);
 
   const updateFoodStatus = async () => {
     setLoadingStatus(true);
@@ -55,9 +54,7 @@ const ManageSingleRequest = () => {
         await requestStatusResponse.json();
         setLoadingStatus(false);
         setRefetchData(Math.random());
-        console.log(refetchData);
         setAcceptButtonStatus("disabled");
-        console.log(acceptButtonStatus);
         toast.success("Accepted!", {
           position: "top-right",
           autoClose: 2000,

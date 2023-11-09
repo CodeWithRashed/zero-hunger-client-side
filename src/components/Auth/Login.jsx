@@ -46,7 +46,6 @@ const Login = ({ setPageToggle }) => {
   const loginWithGoogle = () => {
     googleLogin()
       .then(async (user) => {
-        console.log(user.user);
         const name = await user.user.displayName;
         const email = await user.user.email;
         const imageUrl = await user.user.photoURL;

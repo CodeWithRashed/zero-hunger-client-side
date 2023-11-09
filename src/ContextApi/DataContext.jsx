@@ -66,8 +66,6 @@ const DataContext = ({ children }) => {
         },
         body: JSON.stringify({ userEmail: user.email }),
       })
-      .then(res => res.json())
-      .then(data => console.log(data))
     } else {
       // For user logout
       fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/auth/jwt/clear`, {
@@ -79,8 +77,6 @@ const DataContext = ({ children }) => {
 
         body: JSON.stringify({})
       })
-      .then(res => res.json())
-      .then(data => console.log(data))
     }
   });
 

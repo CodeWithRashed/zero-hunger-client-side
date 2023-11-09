@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet";
 
 const AddFood = () => {
   const { activeUser } = useContext(GlobalDataContext);
-  console.log(activeUser);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;

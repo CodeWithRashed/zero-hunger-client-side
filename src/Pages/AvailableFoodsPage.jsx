@@ -65,7 +65,7 @@ const AvailableFoodsPage = () => {
             <h3 className="text-2xl lg:text-5xl font-pacifico text-[#FFFFFF]">
               Join Us in the Fight
             </h3>
-            <h1 className="drop-shadow-xl text-center text-4xl lg:text-9xl font-rubik text-[#ff2d37] font-bold">
+            <h1 className="drop-shadow-xl text-center text-4xl lg:text-9xl font-rubik text-blue-500 dark:text-blue-600 font-bold">
               Against Hunger
             </h1>
             <div className="cta"></div>
