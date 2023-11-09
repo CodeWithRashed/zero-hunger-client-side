@@ -20,7 +20,7 @@ const ManageSingleRequest = () => {
       fetch(
         `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${
           requestData?.foodId
-        }`
+        }`, {credentials: "include"}
       )
         .then((res) => res.json())
         .then((data) => {

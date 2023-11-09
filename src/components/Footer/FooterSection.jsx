@@ -1,7 +1,6 @@
 // import { Link } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { Footer } from "flowbite-react";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 
 const FooterSection = () => {

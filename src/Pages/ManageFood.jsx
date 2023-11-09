@@ -12,7 +12,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { TbMoodEmpty } from "react-icons/tb";
 import {  BiSolidAddToQueue } from 'react-icons/bi';
 import { Helmet } from "react-helmet";
-import axios from 'axios'
+// import axios from 'axios'
 
 const ManageFood = () => {
   const [foodData, setFoodData] = useState([]);
@@ -103,15 +103,9 @@ const ManageFood = () => {
       accessorKey: "_id",
       header: "Action",
       cell: (info) => (
-        // axios.get(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${info.getValue()}`, {withCredentials: true})
-        // .then(res => {
-        //   if(res.data.deliveryStatus == "Delivered"){
-        //     console.log("delivered")
-        //   }else{
-        //     console.log("Pending")
-        //   }
-        // }),
+
         <div className="flex gap-2">
+        
           <Link
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
             to={`/food/manage/${info.getValue()}`}
@@ -136,6 +130,7 @@ const ManageFood = () => {
         </div>
       ),
     },
+    
   ];
 
   const table = useReactTable({
@@ -244,3 +239,12 @@ const ManageFood = () => {
 };
 
 export default ManageFood;
+
+        // axios.get(`${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/food/${info.getValue()}`, {withCredentials: true})
+        // .then(res => {
+        //   if(res.data.deliveryStatus == "Delivered"){
+        //     console.log("delivered")
+        //   }else{
+        //     console.log("Pending")
+        //   }
+        // }),

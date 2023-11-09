@@ -70,7 +70,7 @@ const UpdateFood = () => {
     }
   };
   return (
-    <div className="py-[5%] text-2xl">
+    <div className="py-[5%] my-20 text-2xl px-6 pt-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
        <Helmet>
         <title>Zero Hunger | Update Food</title>
       </Helmet>
@@ -84,7 +84,7 @@ const UpdateFood = () => {
           </h1>
         </div>
       </div>
-      <div className="mx-auto shadow-xl rounded-b-xl py-5 px-8 ">
+      <div className="mx-auto rounded-b-xl py-5 px-8 ">
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
