@@ -11,7 +11,7 @@ const FeatureFood = () => {
   useEffect(() => {
     fetchFoodData().then((data) => {
       data.sort((a, b) => (b.foodQuantity) - (a.foodQuantity))
-      setFoodData(data.slice(6));
+      setFoodData(data.slice(0, 6));
     });
   }, []);
 
