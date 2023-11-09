@@ -191,7 +191,7 @@ const AllRequestPage = () => {
                           {myRequest.map((singleDonationData) => (
                             <tr
                               key={singleDonationData?._id}
-                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 "
                             >
                               <td className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
@@ -377,7 +377,7 @@ const AllRequestPage = () => {
                           {communityRequest.map((singleDonationData) => (
                             <tr
                               key={singleDonationData?._id}
-                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 "
                             >
                               <td className="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img
@@ -413,8 +413,18 @@ const AllRequestPage = () => {
                               </td>
                               <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
-                                  {singleDonationData?.requestStatus}
+                                {singleDonationData?.requestStatus ==
+                                  "Pending" ? (
+                                    <div className="flex justify-center items-center">
+                                      <div className="h-2.5 w-2.5 rounded-full bg-orange-500 mr-2"></div>
+                                      {singleDonationData?.requestStatus}
+                                    </div>
+                                  ) : (
+                                    <div className="flex justify-center items-center">
+                                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                      {singleDonationData?.requestStatus}
+                                    </div>
+                                  )}
                                 </div>
                               </td>
 
