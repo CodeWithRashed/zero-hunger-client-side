@@ -3,8 +3,11 @@ import { useContext, useState } from "react";
 import { GlobalDataContext } from "../../ContextApi/DataContext";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "flowbite-react";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const Register = ({ setPageToggle }) => {
+  const [creatingAccount, setCreatingAccount] = useState(false);
   const location = useLocation();
 
   const { createEmailUser, googleLogin, userInfoUpdate, setUserPhoto } =
@@ -16,6 +19,7 @@ const Register = ({ setPageToggle }) => {
   const navigator = useNavigate();
   //Handle Submit Info
   const handleSubmit = async (event) => {
+    setCreatingAccount(true);
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
@@ -32,7 +36,7 @@ const Register = ({ setPageToggle }) => {
       const invalidMessage =
         "Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, and one digit.";
       setPassError(invalidMessage);
-
+      setCreatingAccount(false);
       return;
     }
 
@@ -53,13 +57,12 @@ const Register = ({ setPageToggle }) => {
         await response.json();
         setPassError(null);
         setUserPhoto(imageUrl);
-        
+
         await createEmailUser(email, password);
         // Email And Password Registration
-        
-        await userInfoUpdate(name, imageUrl)
-       
-        
+
+        await userInfoUpdate(name, imageUrl);
+
         //Toast Alert
         toast.success("Account Created, Redirecting", {
           position: "top-center",
@@ -76,7 +79,8 @@ const Register = ({ setPageToggle }) => {
         }, 2000);
       }
     } finally {
-      form.reset()
+      setCreatingAccount(false);
+      form.reset();
     }
   };
 
@@ -98,18 +102,18 @@ const Register = ({ setPageToggle }) => {
           },
           body: JSON.stringify(googleUser),
         });
-        navigator(location.state ? location.state : "/");
+        toast.success("Login Successful, Redirecting", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setTimeout(() => {
-          toast.success("Login Successful, Redirecting", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          navigator(location.state ? location.state : "/");
         }, 2000);
       })
       .then();
@@ -285,12 +289,16 @@ const Register = ({ setPageToggle }) => {
                       )}
                       {/* display login error */}
 
-                      <button
-                        type="submit"
-                        className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                      >
-                        Sign Up
-                      </button>
+                      <Button size="md" type="submit">
+                        {creatingAccount ? (
+                          <div className="flex justify-center items-center gap-2">
+                            <AiOutlineLoading className="h-6 w-6 animate-spin" />{" "}
+                            Creating{" "}
+                          </div>
+                        ) : (
+                          "Sign Up"
+                        )}
+                      </Button>
                     </div>
                   </form>
                 </div>

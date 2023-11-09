@@ -1,6 +1,5 @@
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
-import { Card } from "flowbite-react";
 import { BiMapPin } from "react-icons/bi";
 import { useContext, useEffect } from "react";
 
@@ -28,7 +27,10 @@ const FoodDetails = () => {
 
   useEffect(() => {
     fetch(
-      `${import.meta.env.VITE_BACKEND_API}/api/v1/user/get/foods?email=${userEmail}`
+      `${
+        import.meta.env.VITE_BACKEND_API
+      }/api/v1/user/get/foods?email=${userEmail}`,
+      { credentials: "include" }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -89,7 +91,7 @@ const FoodDetails = () => {
   };
 
   return (
-    <div>
+    <div className="my-[5%]">
       <Helmet>
         <title>Zero Hunger | Food Details</title>
       </Helmet>
@@ -351,22 +353,32 @@ const FoodDetails = () => {
       {/* Displaying User Specific Foods */}
       {userFoodData.length > 0 && (
         <div className="mt-10">
-          <div className="text-xl my-8 text-center">
-            <h1 className="text-3xl text-gray-900 dark:text-white">Food Donated By {foodData.donarName}</h1>
+          <div className="tab">
+            <div className="my-5 text-center bg-gray-50 border text-xl border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              More Foods From {foodData.donarName}
+            </div>
           </div>
+
           <div className="grid md:grid-cols-2 justify-center lg:grid-cols-3 gap-5">
             {userFoodData?.map((food) => (
               <div key={food._id}>
-                <Card
-                  className=" h-[350px] w-[350px] overflow-hidden"
-                  imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-                  imgSrc={food.foodImage}
-                >
-                  <a href="#">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <div className=" overflow-hidden p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <div className="h-[200px] w-full">
+                    <img
+                      className="object-cover h-[200px] w-full"
+                      src={food.foodImage}
+                      alt=""
+                    />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h5 className="text-xl my-3 font-semibold tracking-tight text-gray-900 dark:text-white">
                       {food.foodName}
                     </h5>
-                  </a>
+                    <div className="flex justify-center items-center gap-2 dark:text-white">
+                      <BiMapPin></BiMapPin>
+                      <span>{foodData?.pickupLocation}</span>
+                    </div>
+                  </div>
 
                   <div className="flex w-full items-center justify-center">
                     <a
@@ -376,7 +388,7 @@ const FoodDetails = () => {
                       View More
                     </a>
                   </div>
-                </Card>
+                </div>
               </div>
             ))}
           </div>

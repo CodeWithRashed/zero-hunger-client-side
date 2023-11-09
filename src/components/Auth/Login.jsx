@@ -3,6 +3,7 @@ import { GlobalDataContext } from "../../ContextApi/DataContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "flowbite-react";
 
 const Login = ({ setPageToggle }) => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const Login = ({ setPageToggle }) => {
 
     loginWithEmail(email, password)
       .then(() => {
-        form.reset()
+        form.reset();
         toast.success("Login Successful, Redirecting", {
           position: "top-center",
           autoClose: 2000,
@@ -52,6 +53,7 @@ const Login = ({ setPageToggle }) => {
 
         const googleUser = { name, email, imageUrl };
         setUserPhoto(imageUrl);
+
         await fetch(`${import.meta.env.VITE_BACKEND_API}/api/v1/add/user`, {
           method: "POST",
           headers: {
@@ -59,18 +61,19 @@ const Login = ({ setPageToggle }) => {
           },
           body: JSON.stringify(googleUser),
         });
-        navigator(location.state ? location.state : "/");
+        toast.success("Login Successful, Redirecting", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
         setTimeout(() => {
-          toast.success("Login Successful, Redirecting", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          navigator(location.state ? location.state : "/");
         }, 2000);
       })
       .catch((err) => {
@@ -99,7 +102,6 @@ const Login = ({ setPageToggle }) => {
                         setPageToggle(true);
                       }}
                       className="ml-2 text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    
                     >
                       Sign up here
                     </button>
@@ -163,7 +165,6 @@ const Login = ({ setPageToggle }) => {
                             name="email"
                             className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             required
-                           
                           />
 
                           {/* Display on Login Error */}
@@ -183,7 +184,6 @@ const Login = ({ setPageToggle }) => {
                           )}
                           {/* Display on Login Error */}
                         </div>
-                      
                       </div>
                       {/* End Form Group */}
 
@@ -204,7 +204,6 @@ const Login = ({ setPageToggle }) => {
                             name="password"
                             className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             required
-                          
                           />
                           {loginError && (
                             <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
@@ -226,21 +225,20 @@ const Login = ({ setPageToggle }) => {
 
                       {/* display login error */}
                       {loginError && (
-                        <p
-                          className="text-xs text-red-600 mt-2 text-center"
-                        
-                        >
-                         Invalid login credentials
+                        <p className="text-xs text-red-600 mt-2 text-center">
+                          Invalid login credentials
                         </p>
                       )}
                       {/* display login error */}
-
-                      <button
+                      <Button
+                        size="md"
                         type="submit"
-                        className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                       
+                        
                       >
-                        Sign in
-                      </button>
+                        Sign Up
+                      </Button>
+                      
                     </div>
                   </form>
                 </div>
@@ -250,7 +248,6 @@ const Login = ({ setPageToggle }) => {
         </div>
       </div>
       {/* Resposive Form */}
-
     </div>
   );
 };
